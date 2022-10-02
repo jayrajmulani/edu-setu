@@ -5,7 +5,7 @@ export class studentdashboard extends Component {
     return (
       <div>studentdashboard</div>
     )
-  }
+  } 
 }
 
 export default studentdashboard
