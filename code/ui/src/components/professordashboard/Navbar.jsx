@@ -16,7 +16,7 @@ function Mynav() {
             <Nav.Link href="#link">Applicants</Nav.Link>
             <Nav.Link href="/myprofile">My Profile</Nav.Link>      
           </Nav>
-        </Navbar.Collapse>
+        </Navbar.Collapse>  
       </Container>
     </Navbar>
   );

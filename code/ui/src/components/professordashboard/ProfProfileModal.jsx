@@ -29,7 +29,7 @@ function ProfProfileModal() {
             <br />
             <label>
             Department: 
-            <input type="text" />
+            <input type="text" /> 
             </label>
             <label>
             Designation: 
