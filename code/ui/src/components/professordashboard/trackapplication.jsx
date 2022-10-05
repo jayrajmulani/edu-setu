@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-export class trackapplication extends Component {
+export class Trackapplication extends Component {
   render() {
     return (
-      <div>trackapplication</div>
+      <div>Trackapplication</div>
     )
   }
 }
 
-export default trackapplication
+export default Trackapplication

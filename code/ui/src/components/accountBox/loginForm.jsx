@@ -10,9 +10,14 @@ import {
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 
-export function LoginForm(props) {
+export function LoginForm() {
+  console.log("rendering login")
   const { switchToSignup } = useContext(AccountContext);
-
+  function status(){
+    console.log("check status")
+    sessionStorage.setItem("logged_in",true);
+    window.location.replace("/professordashboard")
+  }
   return (
     <BoxContainer>
       <FormContainer>
@@ -22,10 +27,10 @@ export function LoginForm(props) {
       <Marginer direction="vertical" margin={10} />
       <MutedLink href="#">Forget your password?</MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
-      <SubmitButton type="submit">Signin</SubmitButton>
+      <SubmitButton type="submit" onClick={status}>Signin</SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
-        Don't have an accoun?{" "}
+        Don't have an account?{" "}
         <BoldLink href="#" onClick={switchToSignup}>
           Signup
         </BoldLink>
@@ -33,3 +38,5 @@ export function LoginForm(props) {
     </BoxContainer>
   );
 }
+
+export default LoginForm

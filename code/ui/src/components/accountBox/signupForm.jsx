@@ -13,7 +13,6 @@ import { AccountContext } from "./accountContext";
 
 export function SignupForm(props) {
   const { switchToSignin } = useContext(AccountContext);
-
   return (
     <BoxContainer>
       <FormContainer>

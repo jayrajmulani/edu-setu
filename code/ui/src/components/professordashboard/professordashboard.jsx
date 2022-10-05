@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
+import MyNav from './Navbar'
+import Post from './NewPost'
+import Tables from './Table'
 
-export class professordashboard extends Component {
+export class ProfessorDashboard extends Component {
   render() {
     return (
-      <div>Professor dashboard</div>
-    )
+        <>
+          <MyNav />
+          <Post />
+          <Tables />
+        </>
+      )
   }
 }
 
-export default professordashboard
+export default ProfessorDashboard;

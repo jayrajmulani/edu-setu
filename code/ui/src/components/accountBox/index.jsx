@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { LoginForm } from "./loginForm";
+import { LoginForm } from "./LoginForm";
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
-import { SignupForm } from "./signupForm";
+import { SignupForm } from "./SignupForm";
 
 const BoxContainer = styled.div`
   width: 280px;
@@ -40,8 +40,8 @@ const BackDrop = styled(motion.div)`
   background: rgb(241, 196, 15);
   background: linear-gradient(
     58deg,
-    rgba(241, 196, 15, 1) 20%,
-    rgba(243, 172, 18, 1) 100%
+    rgba(31,	108,	152, 1) 20%,
+    rgba(31,	108,	152, 1) 100%
   );
 `;
 
