@@ -108,10 +108,11 @@ def test_update_application():
     assert json_response['status'] == True
     assert type(json_response['data']) is str
 
+
 def get_all_application_by_student():
     request = {"user_id" : 1032}
     request = json.dumps(request)
-    response = app.test_client().post(f'{base_url}/get_user_profile', data=request)
+    response = app.test_client().post(f'{base_url}/get_all_applications_by_student', data=request)
 
     assert response.status_code ==200
     json_response = json.loads(response.data.decode("utf-8"))
