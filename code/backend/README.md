@@ -10,6 +10,69 @@
 
 ```
 
+
+/login [POST]
+Request:
+{
+    email : string,
+    password: string
+}
+Response:
+{
+    status: boolean,
+
+    if status is True:
+        data:{
+            email: string,
+            user_id: number,
+            display_name: string
+            type: string (Professor / Student)
+        }
+    else:
+        data: string (containing an error message)
+}
+```
+
+---
+
+```
+/register [POST]
+Request:
+{
+    email : string,
+    password: string,
+    display_name: string,
+    type: string (Professor / Student),
+    phone: string,
+    if type == "Student":
+        gpa: float,
+        major: string,
+        minor: string,
+        degree: string,
+        year: string
+    elif type == "Professor":
+        department: string,
+        designation
+}
+Response:
+{
+    status: boolean
+    if status is True:
+        data:{
+            email: string,
+            user_id: number,
+            display_name: string
+            type: string (Professor / Student)
+        }
+    else:
+        data: string (containing an error message)
+}
+```
+
+---
+
+```
+
 /get_all_users [GET]
 Request: N/A
 Response:
@@ -154,68 +217,6 @@ Response:
 
 ```
 
-
-/login [POST]
-Request:
-{
-    email : string,
-    password: string
-}
-Response:
-{
-    status: boolean,
-
-    if status is True:
-        data:{
-            email: string,
-            user_id: number,
-            display_name: string
-            type: string (Professor / Student)
-        }
-    else:
-        data: string (containing an error message)
-}
-```
-
----
-
-```
-/register [POST]
-Request:
-{
-    email : string,
-    password: string,
-    display_name: string,
-    type: string (Professor / Student),
-    phone: string,
-    if type == "Student":
-        gpa: float,
-        major: string,
-        minor: string,
-        degree: string,
-        year: string
-    elif type == "Professor":
-        department: string,
-        designation
-}
-Response:
-{
-    status: boolean
-    if status is True:
-        data:{
-            email: string,
-            user_id: number,
-            display_name: string
-            type: string (Professor / Student)
-        }
-    else:
-        data: string (containing an error message)
-}
-```
-
----
-
-```
 /add_posting [POST]
 Request:
 {
