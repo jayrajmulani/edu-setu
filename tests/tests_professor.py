@@ -2,6 +2,7 @@ import sys
 import traceback
 from flask import Flask
 import json
+import pytest
 
 sys.path.append("../code/backend")
 import utils
@@ -17,7 +18,7 @@ def test_get_all_postings():
     response = professor_api.test_client().get('/get_all_postings')
     res = json.loads(response.data.decode('utf-8')).get("data")
     assert type(res[0]) is dict
-    #assert res[0]['author'] == 'Havard'
+    #assert res[0]['title'] == 'Hello'
    
     assert response.status_code == 200
     #assert type(res) is list
