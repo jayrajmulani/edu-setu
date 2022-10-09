@@ -65,7 +65,20 @@ Response:
 /get_all_postings_by_professor [POST]
 
 /delete_posting [POST]
+Request:
+{
+    posting_id : number ,
+}
+Response:
+{
+    status: boolean,
+    data: message (Success / Error message as per status)
+}
+```
 
+---
+
+```
 
 
 /login [POST]
