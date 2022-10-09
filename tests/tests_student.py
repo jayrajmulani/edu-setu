@@ -64,13 +64,62 @@ def test_get_all_users():
     assert type(json_response['data']) is list
 
 def test_get_specific_applications():
-    request = {"user_id" : 1050}
+    request = {"application" : "1050"}
     request = json.dumps(request)
     response = app.test_client().get(f'{base_url}/get_specific_application', data=request)
     assert response.status_code ==200
     json_response = json.loads(response.data.decode("utf-8"))
     assert json_response['status'] == True
     assert type(json_response['data']) is dict
+
+
+def test_get_application_by_professor():
+    request = { "professor":1033}
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/get_applications_for_professor', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is list
+
+
+# def test_add_application():
+#     request = {"user_id" : 1010}
+#     request = json.dumps(request)
+#     response = app.test_client().post(f'{base_url}/get_user_profile', data=request)
+
+#     assert response.status_code ==200
+#     json_response = json.loads(response.data.decode("utf-8"))
+
+#     assert json_response['status'] == True
+#     assert type(json_response['data']) is dict
+
+
+def test_update_application():
+    request = {"application_id": 1048,"status": "Withdrawn","remarks": "Updated"}
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/update_application', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is str
+
+def get_all_application_by_student():
+    request = {"user_id" : 1032}
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/get_user_profile', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is list
+
+
 
 
 
