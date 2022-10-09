@@ -87,7 +87,27 @@ Response:
 ```
 
 /get_all_postings_by_professor [POST]
-
+Request:
+{
+    
+    professor: number (user id of professor),
+    
+}
+Response:
+{
+    status: boolean
+    data: 
+	{
+		posting_id: number,
+		title: string,
+		professor: number (user id of professor)
+		description: string,
+    	location: string,
+   		prerequisites: string,
+		created_at: string,
+		updated_at: string
+	}
+}
 
 ```
 
