@@ -31,4 +31,15 @@ def test_get_all_postings_by_professor():
 
     assert json_response['status'] == True
     assert type(json_response['data']) is list
+    
+def test_add_posting():
+    request = { "professor": 1010 , "title":"Backend Testing", "description":"Test the backend API calls", "location":"Suspense", "prerequisites":"Flask"}
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/add_posting', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is list
 
