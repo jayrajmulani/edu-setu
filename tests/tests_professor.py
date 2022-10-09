@@ -43,3 +43,12 @@ def test_add_posting():
     assert json_response['status'] == True
     assert type(json_response['data']) is str
 
+def test_delete_posting():
+    request = { "posting_id": 1049 }
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/delete_posting', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
