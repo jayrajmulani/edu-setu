@@ -62,7 +62,38 @@ Response:
 
 /get_specific_application [POST]
 
+Request:
+{
+	application_id: number,
+}
+Response:
+{
+
+	status: boolean
+	data: {
+		student: number,
+		remarks: string,
+		posting_id: number,
+		status: string (By default it will be Pending)
+		created_at: string,
+		updated_at: string
+	
+}
+
+```
+
+---
+
+```
+
 /get_all_postings_by_professor [POST]
+
+
+```
+
+---
+
+```
 
 /delete_posting [POST]
 Request:
@@ -74,6 +105,7 @@ Response:
     status: boolean,
     data: message (Success / Error message as per status)
 }
+
 ```
 
 ---
