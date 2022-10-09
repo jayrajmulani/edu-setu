@@ -45,7 +45,7 @@ def test_add_posting():
     assert type(json_response['data']) is str
 
 def test_delete_posting():
-    request = { "posting_id": 1052 }
+    request = { "posting_id": 1053 }
     request = json.dumps(request)
     response = app.test_client().post(f'{base_url}/delete_posting', data=request)
 
@@ -78,7 +78,7 @@ def test_get_applications_for_professor():
     assert type(json_response['data']) is list
     
 def test_edit_profile():
-    request = {"email":"yashasya@ncsu.edu","user_id":1029,"type":"student","display_name": "Yashasya","phone": "9996663331"}
+    request = {"email":"yashasya@ncsu.edu","user_id":1029,"type":"student","display_name": "Yashasya","phone": 9996663331}
     request = json.dumps(request)
     response = app.test_client().post(f'{base_url}/edit_profile', data=request)
 
