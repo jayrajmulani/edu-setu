@@ -1,49 +1,44 @@
-# import sys
-# import traceback
-
-# sys.path.append("../code/backend")
-
-# import auth, student_apis, utils
-
-# def test_register():
-
-#     data = {
-#   "email":"Yash@ncsu.edu",
-#   "password": "iamyash",
-#   "type":"student",
-#   "display_name": "Yash",
-#   "phone": "9824898248",
-#   "gpa": 4.0,
-#   "major":"CS",
-#   "degree":"masters",
-#   "year":"Junior",
-#   "minor": "None"
-#     }
-
-#     answer = auth.register(data)
-#     print(answer)
-
-
-# test_register()
-
-import urllib
+import sys
+import traceback
 from flask import Flask
-from flask_testing import LiveServerTestCase
+import json
+import pytest
 
-class MyTest(LiveServerTestCase):
+sys.path.append("../code/backend")
+import utils
+import student_apis
+import auth
+from main import app
 
-    def create_app(self):
-        app = Flask(__name__)
-        app.config['TESTING'] = True
-        # Default port is 5000
-        app.config['LIVESERVER_PORT'] = 5000
-        # Default timeout is 5 seconds
-        app.config['LIVESERVER_TIMEOUT'] = 10
-        return app
+base_url = "http://140.238.250.0:5000"
+    
+def test_get_all_applications():
+    response = app.test_client().get(f'{base_url}/get_all_application')
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+    assert json_response['status'] == True
+    assert type(json_response['data']) is list
 
-    def test_server_is_up_and_running(self):
-        response = urllib.urlopen("http://140.238.250.0:5000/login")
-        self.assertEqual(response.code, 200)
+def test_login():
+    request = { "email":"professor@ncsu.edu", "password": "12345678"}
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/login', data=request)
 
-obj = MyTest()
-print(obj.get_server_url())
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is dict
+
+
+def test_register():
+    request = { "email":"Yashasya123@ncsu.edu","password": "12345678","type":"student","display_name": "Test1","phone": "000000000" }
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/register', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is dict
+
