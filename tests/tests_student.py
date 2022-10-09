@@ -26,17 +26,6 @@
 
 # test_register()
 
-from flask import Flask
-from flask_testing import TestCase
-
-class MyTest(TestCase):
-
-    def create_app(self):
-
-        app = Flask(__name__)
-        app.config['TESTING'] = True
-        return app
-
 import urllib
 from flask import Flask
 from flask_testing import LiveServerTestCase
@@ -53,7 +42,7 @@ class MyTest(LiveServerTestCase):
         return app
 
     def test_server_is_up_and_running(self):
-        response = urllib.urlopen(self.get_server_url())
+        response = urllib.urlopen("http://140.238.250.0:5000/login")
         self.assertEqual(response.code, 200)
 
 obj = MyTest()
