@@ -2,25 +2,26 @@ version: '3.3'
 
 services:
   backend:
-    build: ./backend
+    build: ./code/backend
     expose:
-     - 5000
+     - 4000
     ports:
-      - 5000:5000
+      - 4000:4000
     volumes:
-      - ./backend:/usr/src/backend
+      - ./code/backend:/usr/src/backend
     environment:
       - FLASK_ENV=development
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
+      - LD_LIBRARY_PATH=/usr/instant_client/instantclient_21_7/
   ui:
-    build: ./ui
+    build: ./code/ui
     expose:
       - 3000
     ports:
       - 3000:3000
     volumes:
-      - ./ui/src/:/usr/src/ui/src
-      - ./ui/public/:/usr/src/ui/public
+      - ./code/ui/src/:/usr/src/ui/src
+      - ./code/ui/public/:/usr/src/ui/public
     links:
       - "backend:backend"
