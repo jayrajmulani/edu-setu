@@ -7,6 +7,7 @@ import pytest
 sys.path.append("../code/backend")
 import utils
 import professor_api 
+import auth
 from main import app
 
 base_url = "http://140.238.250.0:5000"
@@ -44,7 +45,7 @@ def test_add_posting():
     assert type(json_response['data']) is str
 
 def test_delete_posting():
-    request = { "posting_id": 1051 }
+    request = { "posting_id": 1052 }
     request = json.dumps(request)
     response = app.test_client().post(f'{base_url}/delete_posting', data=request)
 
@@ -54,7 +55,7 @@ def test_delete_posting():
     assert json_response['status'] == True
     
 def test_update_posting():
-    request = { "posting_id":1046, "professor": 1033 , "title":"Frontend Testing", "description":"Test the UI", "location":"Suspense II", "prerequisites":"ANTD"}
+    request = { "posting_id":1046, "professor": 1033 , "title":"Frontend Testing", "description":"Test UI", "location":"Suspense II", "prerequisites":"ANTD"}
     request = json.dumps(request)
     response = app.test_client().post(f'{base_url}/update_posting', data=request)
 
@@ -75,3 +76,15 @@ def test_get_applications_for_professor():
 
     assert json_response['status'] == True
     assert type(json_response['data']) is list
+    
+def test_edit_profile():
+    request = {"email":"yashasya@ncsu.edu","user_id":1029,"type":"student","display_name": "Yashasya","phone": "9996663331"}
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/edit_profile', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is str
+    
