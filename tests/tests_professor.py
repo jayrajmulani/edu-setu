@@ -41,5 +41,5 @@ def test_add_posting():
     json_response = json.loads(response.data.decode("utf-8"))
 
     assert json_response['status'] == True
-    assert type(json_response['data']) is list
+    assert type(json_response['data']) is str
 
