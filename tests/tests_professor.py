@@ -7,31 +7,28 @@ import pytest
 sys.path.append("../code/backend")
 import utils
 import professor_api 
+from main import app
 
+base_url = "http://140.238.250.0:5000"
 def test_index_route():
-    response = professor_api.test_client().get('http://140.238.250.0:')
-
+    response = app.test_client().get(f'{base_url}/')
     assert response.status_code == 200
-    assert response.data.decode('utf-8') == 'Testing, Flask!'
     
 def test_get_all_postings():
-    response = professor_api.test_client().get('/get_all_postings')
-    res = json.loads(response.data.decode('utf-8')).get("data")
-    assert type(res[0]) is dict
-    #assert res[0]['title'] == 'Hello'
-   
-    assert response.status_code == 200
-    #assert type(res) is list
+    response = app.test_client().get(f'{base_url}/get_all_postings')
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+    assert json_response['status'] == True
+    assert type(json_response['data']) is list
 
-# def test_get_all_postings_by_professor():
-#     data = { "professor":1010 }
-#     x = professor_api.get_all_postings_by_professor(data)
-#     print(x)
-#     if x :
-#         print('True')
-#     else:
-#         print('False')
-    
-# test_get_all_postings_by_professor()
+def test_get_all_postings_by_professor():
+    request = { "professor":1010 }
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/get_all_postings_by_professor', data=request)
 
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is list
 
