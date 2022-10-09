@@ -44,7 +44,7 @@ def test_add_posting():
     assert type(json_response['data']) is str
 
 def test_delete_posting():
-    request = { "posting_id": 1049 }
+    request = { "posting_id": 1050 }
     request = json.dumps(request)
     response = app.test_client().post(f'{base_url}/delete_posting', data=request)
 
@@ -52,3 +52,14 @@ def test_delete_posting():
     json_response = json.loads(response.data.decode("utf-8"))
 
     assert json_response['status'] == True
+    
+def test_update_posting():
+    request = { "posting_id":1046, "professor": 1033 , "title":"Frontend Testing", "description":"Test the UI", "location":"Suspense II", "prerequisites":"ANTD"}
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/update_posting', data=request)
+
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
+
+    assert json_response['status'] == True
+    assert type(json_response['data']) is str
