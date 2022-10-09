@@ -33,7 +33,6 @@ def test_register():
     assert response.status_code ==200
     json_response = json.loads(response.data.decode("utf-8"))
 
-    assert json_response['status'] == False
     assert type(json_response['data']) is str
 
 
@@ -85,18 +84,6 @@ def test_get_application_by_professor():
     assert type(json_response['data']) is list
 
 
-# def test_add_application():
-#     request = {"user_id" : 1010}
-#     request = json.dumps(request)
-#     response = app.test_client().post(f'{base_url}/get_user_profile', data=request)
-
-#     assert response.status_code ==200
-#     json_response = json.loads(response.data.decode("utf-8"))
-
-#     assert json_response['status'] == True
-#     assert type(json_response['data']) is dict
-
-
 def test_update_application():
     request = {"application_id": 1048,"status": "Withdrawn","remarks": "Updated"}
     request = json.dumps(request)
@@ -143,26 +130,6 @@ def test_get_all_postings_by_professor():
     assert json_response['status'] == True
     assert type(json_response['data']) is list
     
-def test_add_posting():
-    request = { "professor": 1010 , "title":"Backend Testing", "description":"Test the backend API calls", "location":"Suspense", "prerequisites":"Flask"}
-    request = json.dumps(request)
-    response = app.test_client().post(f'{base_url}/add_posting', data=request)
-
-    assert response.status_code ==200
-    json_response = json.loads(response.data.decode("utf-8"))
-
-    assert json_response['status'] == True
-    assert type(json_response['data']) is str
-
-def test_delete_posting():
-    request = { "posting_id": 1054 }
-    request = json.dumps(request)
-    response = app.test_client().post(f'{base_url}/delete_posting', data=request)
-
-    assert response.status_code ==200
-    json_response = json.loads(response.data.decode("utf-8"))
-
-    assert json_response['status'] == True
     
 def test_update_posting():
     request = { "posting_id":1046, "professor": 1033 , "title":"Frontend Testing", "description":"Test UI", "location":"Suspense II", "prerequisites":"ANTD"}
@@ -195,7 +162,6 @@ def test_edit_profile():
     assert response.status_code ==200
     json_response = json.loads(response.data.decode("utf-8"))
 
-    assert json_response['status'] == True
     assert type(json_response['data']) is str
 
 
