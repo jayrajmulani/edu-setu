@@ -34,7 +34,7 @@ def test_register():
     json_response = json.loads(response.data.decode("utf-8"))
 
     assert json_response['status'] == False
-    assert type(json_response['data']) is string
+    assert type(json_response['data']) is str
 
 
 def test_get_user_profile():
@@ -45,7 +45,7 @@ def test_get_user_profile():
     assert response.status_code ==200
     json_response = json.loads(response.data.decode("utf-8"))
 
-    assert json_response['status'] == False
+    assert json_response['status'] == True
     assert type(json_response['data']) is dict
 
 
@@ -64,7 +64,7 @@ def test_get_all_users():
     assert type(json_response['data']) is list
 
 def test_get_specific_applications():
-    request = {"user_id" : 1010}
+    request = {"user_id" : 1050}
     request = json.dumps(request)
     response = app.test_client().get(f'{base_url}/get_specific_application', data=request)
     assert response.status_code ==200
