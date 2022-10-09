@@ -270,7 +270,7 @@ def update_application(data):
         # Get the data from JSON Payload
         app_id = data["application_id"]
         status = data["status"]
-        remarks = data["remarks"] if data["remarks"] else None
+        remarks = data["remarks"] if "remarks" in  data.keys() else None
         
         # Insert application into database
         cur = con.cursor()
