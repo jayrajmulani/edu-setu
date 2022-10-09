@@ -41,17 +41,39 @@ Request:
 }
 Response:
 {
-    status: boolean,
+	status: boolean,
 
-    if status is True:
-        data:{
-            email: string,
-            user_id: number,
-            display_name: string
-            type: string (Professor / Student)
-        }
-    else:
-        data: string (containing an error message)
+	if status is True:
+		data:
+		[
+			{
+				application_id: number,
+				posting_id: number,
+				title: string,
+				description: string,
+				location: string,
+				prerequisites: string,
+				created_at: string, (of the application, NOT the posting)
+				updated_at: string, (of the application, NOT the posting)
+				professor_user_id: number,
+				professor_email: string,
+				professor_department: string,
+				professor_designation: string
+				professor_display_name: string,
+				student_user_id: number,
+				student_display_name: string,
+				student_email: string,
+				student_phone: string,
+				student_gpa: float,
+				student_major: string,
+				student_minor: string,
+				student_year: string,
+				status: string // This is the status of the application and NOT the response.
+				remarks: string
+			}
+		]
+	else:
+	data: string (error message)
 }
 
 ```
@@ -90,7 +112,7 @@ Response:
 Request:
 {
     
-    professor: number (user id of professor),
+    student: number (user id of student),
     
 }
 Response:
