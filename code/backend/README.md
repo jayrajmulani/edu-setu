@@ -9,6 +9,65 @@
 ### API Endpoints
 
 ```
+
+/get_all_users [GET]
+Request: N/A
+Response:
+{
+    status: boolean,
+
+    if status is True:
+        data:{
+            email: string,
+            user_id: number,
+			phone: number,
+            display_name: string
+            type: string (Professor / Student)
+        }
+    else:
+        data: string (containing an error message)
+}
+```
+
+---
+
+```
+
+/get_all_applications_by_student [POST]
+Request:
+{
+    email : string,
+    password: string
+}
+Response:
+{
+    status: boolean,
+
+    if status is True:
+        data:{
+            email: string,
+            user_id: number,
+            display_name: string
+            type: string (Professor / Student)
+        }
+    else:
+        data: string (containing an error message)
+}
+
+```
+
+---
+
+```
+
+/get_specific_application [POST]
+
+/get_all_postings_by_professor [POST]
+
+/delete_posting [POST]
+
+
+
 /login [POST]
 Request:
 {
