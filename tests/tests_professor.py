@@ -78,7 +78,7 @@ def test_get_applications_for_professor():
     assert type(json_response['data']) is list
     
 def test_edit_profile():
-    request = {"email":"yashasya@ncsu.edu","user_id":1029,"type":"student","display_name": "Yashasya","phone": 9996663331}
+    request = {"email":"yashasya@ncsu.edu","user_id":1029,"type":"student","display_name": "Yashasya","phone": 9996663331,"gpa":3.5,"major":"CS","minor":"None","degree":"Graduate","year":"postdoc"}
     request = json.dumps(request)
     response = app.test_client().post(f'{base_url}/edit_profile', data=request)
 
