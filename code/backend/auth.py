@@ -3,6 +3,41 @@ import bcrypt
 
 
 def register(data):
+    
+     '''
+    /register [POST]
+    Request:
+    {
+        email : string,
+        password: string,
+        display_name: string,
+        type: string (Professor / Student),
+        phone: string,
+        if type == "Student":
+            gpa: float,
+            major: string,
+            minor: string,
+            degree: string,
+            year: string
+        elif type == "Professor":
+            department: string,
+            designation
+    }
+    Response:
+    {
+        status: boolean
+        if status is True:
+            data:{
+                email: string,
+                user_id: number,
+                display_name: string
+                type: string (Professor / Student)
+            }
+        else:
+            data: string (containing an error message)
+    }
+    '''
+    
     try:
         con = connect()
     except:
@@ -83,6 +118,30 @@ def register(data):
 
 
 def login(data):
+    
+    '''
+    /login [POST]
+    Request:
+    {
+        email : string,
+        password: string
+    }
+    Response:
+    {
+        status: boolean,
+
+        if status is True:
+            data:{
+                email: string,
+                user_id: number,
+                display_name: string
+                type: string (Professor / Student)
+            }
+        else:
+            data: string (containing an error message)
+    }
+    '''
+    
     try:
         con = connect()
     except:
@@ -128,6 +187,37 @@ def login(data):
 
 
 def get_user_profile(data):
+    
+    '''
+    /get_user_profile [POST]
+    Request:
+    {
+        user_id: number
+    }
+    Response:
+    {
+        status: boolean,
+        data:
+        {
+            user_id: number,
+            display_name: string,
+            email: string,
+            phone: string,
+            type: string,
+            if type == "Student":
+                gpa: float,
+                major: string,
+                minor: string,
+                degree: string,
+                year: string
+            elif type == "Professor":
+                department: string,
+                designation: string
+        }
+
+    }
+    '''
+    
     try:
         con = connect()
     except:
