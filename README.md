@@ -22,7 +22,7 @@
 - [Development Specifications](#development-specifications)
   - [Backend](./code/backend/README.md)
   - [Frontend](./code/ui/README.md)
-- [Features Overview](https://drive.google.com/file/d/1E8tQ0io8r9lEnTdS0_BcB-z326U9bck-/view?usp=sharing)
+- [Features Overview](https://www.youtube.com/watch?v=2PfVqtwufgw)
 - [License](#license)
 - [Future Scope](#future-scope)
 - [Contributors](#contributors)
