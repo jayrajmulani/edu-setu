@@ -5,6 +5,7 @@ import datetime
 def add_posting(data):
     
     '''
+    ```
     Request:
     {
         title: string,
@@ -19,6 +20,7 @@ def add_posting(data):
         data: message (Success / Error message as per status)
         // CREATED_AT and UPDATED_AT timestamps to be appropriately set by the API
     }
+    ```
     '''
     
     try:
@@ -52,6 +54,7 @@ def add_posting(data):
         
 def get_all_postings():
     '''
+    ```
     /get_all_postings [GET]
 Request: N/A
 Response:
@@ -78,7 +81,7 @@ Response:
 	else:
 	data: string (error message)
 }
-
+```
     '''   
     
     
@@ -113,7 +116,7 @@ Response:
 def get_all_postings_by_professor(data):
     
     '''
-    
+    ```
     Request:
     {
 
@@ -136,7 +139,7 @@ def get_all_postings_by_professor(data):
         }
         
     }
-    
+    ```
     '''
     
     con = connect()
@@ -173,6 +176,7 @@ def get_all_postings_by_professor(data):
 def update_posting(data):
     
     '''
+    ```
     /update_posting [POST]
     Request:
     {
@@ -188,7 +192,7 @@ def update_posting(data):
         data: (Success / Error message as per status)
         // UPDATED_AT timestamp should be auto updated by the API
     }
-    
+    ```
     '''
     
     
@@ -224,6 +228,7 @@ def update_posting(data):
 def get_applications_for_professor(data):
     
     '''
+    ```
     /get_applications_for_professor [POST]
 Request:
 {
@@ -260,7 +265,7 @@ Response:
 		}
 	]
 }
-    
+    ```
     '''
     
     
@@ -363,6 +368,7 @@ order by postings.POSTING_ID'''
 def delete_posting(data):
     
     '''
+    ```
     /delete_posting [POST]
     Request:
     {
@@ -373,6 +379,7 @@ def delete_posting(data):
         status: boolean,
         data: message (Success / Error message as per status)
     }
+    ```
     
     '''
     
