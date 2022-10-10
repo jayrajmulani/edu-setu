@@ -3,8 +3,8 @@ import bcrypt
 
 
 def register(data):
-    
-     '''
+    '''
+    ```
     /register [POST]
     Request:
     {
@@ -36,8 +36,9 @@ def register(data):
         else:
             data: string (containing an error message)
     }
+    ```
     '''
-    
+
     try:
         con = connect()
     except:
@@ -118,8 +119,8 @@ def register(data):
 
 
 def login(data):
-    
     '''
+    ```
     /login [POST]
     Request:
     {
@@ -140,8 +141,9 @@ def login(data):
         else:
             data: string (containing an error message)
     }
+    ```
     '''
-    
+
     try:
         con = connect()
     except:
@@ -187,8 +189,8 @@ def login(data):
 
 
 def get_user_profile(data):
-    
     '''
+    ```
     /get_user_profile [POST]
     Request:
     {
@@ -214,10 +216,10 @@ def get_user_profile(data):
                 department: string,
                 designation: string
         }
-
     }
+    ```
     '''
-    
+
     try:
         con = connect()
     except:
@@ -280,6 +282,35 @@ def get_user_profile(data):
 
 
 def edit_profile(data):
+    '''
+    ```
+    /edit_profile
+    Request:
+    {
+        user_id: number,
+        email : string,
+        password: string,
+        display_name: string,
+        type: string (Professor / Student),
+        phone: string,
+        if type == "Student":
+            gpa: float,
+            major: string,
+            minor: string,
+            degree: string,
+            year: string
+        elif type == "Professor":
+            department: string,
+            designation
+    }
+    Response:
+    {
+        status: boolean
+        data: (Success / Error message as per status)
+    }
+    ```
+
+    '''
     try:
         con = connect()
     except:
