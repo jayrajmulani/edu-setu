@@ -5,6 +5,7 @@ import bcrypt
 def get_all_users():
     
     '''
+    ```
     /get_all_users [GET]
     Request: N/A
     Response:
@@ -22,7 +23,7 @@ def get_all_users():
         else:
             data: string (containing an error message)
     }
-    
+    ```
     '''
     
     con = connect()
@@ -55,6 +56,7 @@ def get_all_users():
 def get_all_applications_by_student(data):
     
     '''
+    ```
     /get_all_applications_by_student [POST]
     Request:
     {
@@ -97,7 +99,7 @@ def get_all_applications_by_student(data):
         else:
         data: string (error message)
     }
-
+```
     
     '''
     
@@ -191,6 +193,7 @@ AND student = :1'''
 def get_specific_application(data):
     
     '''
+    ```
     /get_specific_application [POST]
 
     Request:
@@ -210,6 +213,7 @@ def get_specific_application(data):
             updated_at: string
 
     }
+    ```
     '''
     
     con = connect()
@@ -245,6 +249,7 @@ def get_specific_application(data):
 def add_application(data):
     
     '''
+    ```
     /add_application
     Request:
     {
@@ -259,6 +264,7 @@ def add_application(data):
         data: message (Success / Error message as per status)
         // CREATED_AT and UPDATED_AT timestamps to be appropriately set by the API
     }
+    ```
     '''
     
     try:
@@ -290,6 +296,7 @@ def add_application(data):
 def get_all_application():
     
     '''
+    ```
     /get_all_applications_by_student [POST]
 Request:
 {
@@ -332,7 +339,7 @@ Response:
 	else:
 	data: string (error message)
 }
-
+    ```
     '''
     con = connect()
     if not con:
@@ -421,6 +428,7 @@ professor_data.professor_posting_id '''
 def update_application(data):
     
     '''
+    ```
     /update_application [POST]
     Request:
     {
@@ -434,6 +442,7 @@ def update_application(data):
         data: (Success / Error message as per status)
         // UPDATED_AT timestamp should be auto updated by the API
     }
+    ```
     '''
     
     
