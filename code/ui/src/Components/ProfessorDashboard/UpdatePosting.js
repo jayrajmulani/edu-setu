@@ -11,26 +11,23 @@ export class UpdatePosting extends Component {
 			this.props.submitUpdatePosting(values);
 		});
 	};
+
 	componentDidMount() {
 		this.props.populateUpdateData();
 	}
+
 	componentDidUpdate() {
 		this.props.populateUpdateData();
 	}
+
 	render() {
 		return (
 			<Form
 				ref={this.props.updateFormRef}
 				name='basic'
-				labelCol={{
-					span: 8,
-				}}
-				wrapperCol={{
-					span: 30,
-				}}
-				initialValues={{
-					remember: true,
-				}}
+				labelCol={{ span: 8 }}
+				wrapperCol={{ span: 30 }}
+				initialValues={{ remember: true }}
 				onFinish={this.onSubmitUpdatePosting}
 			>
 				<Form.Item

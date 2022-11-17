@@ -3,33 +3,29 @@ import { Form, Input, Button, Select } from "antd";
 import "../Login/Login.css";
 const { Option } = Select;
 
-export class UpdateApplication extends Component {
+export default class UpdateApplication extends Component {
 	onSubmitUpdateApplication = () => {
 		this.props.updateFormRef.current.validateFields().then((values) => {
 			values.application_id = this.props.updateApplicantData.application_id;
 			this.props.submitUpdateApplication(values);
 		});
 	};
+
 	componentDidMount() {
 		this.props.populateUpdateData();
 	}
+
 	componentDidUpdate() {
 		this.props.populateUpdateData();
 	}
+
 	render() {
 		return (
 			<Form
 				ref={this.props.updateFormRef}
 				name='basic'
-				labelCol={{
-					span: 8,
-				}}
-				wrapperCol={{
-					span: 30,
-				}}
-				initialValues={{
-					remember: true,
-				}}
+				labelCol={{ span: 8 }}
+				wrapperCol={{ span: 30 }}
 				onFinish={this.onSubmitUpdateApplication}
 			>
 				<Form.Item label='Student Name' name='student_display_name'>
@@ -86,5 +82,3 @@ export class UpdateApplication extends Component {
 		);
 	}
 }
-
-export default UpdateApplication;

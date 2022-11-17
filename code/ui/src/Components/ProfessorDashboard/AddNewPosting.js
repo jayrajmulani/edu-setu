@@ -3,27 +3,21 @@ import { Form, Input, Button, Select } from "antd";
 import "../Login/Login.css";
 const { Option } = Select;
 
-export class AddNewPosting extends Component {
+export default class AddNewPosting extends Component {
 	onSubmitAddPosting = () => {
 		this.props.formRef.current.validateFields().then((values) => {
 			values.professor = localStorage.getItem("user_id");
 			this.props.submitAddPosting(values);
 		});
 	};
+
 	render() {
 		return (
 			<Form
 				ref={this.props.formRef}
 				name='basic'
-				labelCol={{
-					span: 8,
-				}}
-				wrapperCol={{
-					span: 30,
-				}}
-				initialValues={{
-					remember: true,
-				}}
+				labelCol={{ span: 8 }}
+				wrapperCol={{ span: 30 }}
 				onFinish={this.onSubmitAddPosting}
 			>
 				<Form.Item
@@ -93,25 +87,17 @@ export class AddNewPosting extends Component {
 					</Select>
 				</Form.Item>
 				<Button
-					style={{ marginLeft: "15px", float: "right" }}
+					style={{ float: "right" }}
 					type='primary'
 					htmlType='submit'
 					loading={this.props.loadingAddPosting}
 				>
 					Submit
 				</Button>
-				<Button
-					type='link'
-					style={{ marginLeft: "15px" }}
-					onClick={() => {
-						this.props.formRef.current?.resetFields();
-					}}
-				>
+				<Button type='link' onClick={() => this.props.formRef.current?.resetFields()}>
 					Reset Form
 				</Button>
 			</Form>
 		);
 	}
 }
-
-export default AddNewPosting;
