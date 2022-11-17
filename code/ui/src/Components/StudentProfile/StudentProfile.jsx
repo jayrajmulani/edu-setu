@@ -7,7 +7,7 @@ import "./StudentProfile.css";
 
 export default class StudentProfile extends Component {
 	state = {
-		user_id: sessionStorage.getItem("user_id"),
+		user_id: localStorage.getItem("user_id"),
 		user_name: "",
 		current_user: {},
 		loading: true,

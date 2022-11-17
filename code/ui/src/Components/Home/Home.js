@@ -27,7 +27,7 @@ export default class Home extends React.Component {
 		});
 	};
 	onLogOut = () => {
-		sessionStorage.clear();
+		localStorage.clear();
 		message.success("User Logged out successfully.", 1);
 		window.location.replace("/");
 	};

@@ -73,7 +73,7 @@ export default class Postings extends React.Component {
 				"Access-Control-Allow-Origin": "*",
 			},
 			body: JSON.stringify({
-				professor: sessionStorage.getItem("user_id"),
+				professor: localStorage.getItem("user_id"),
 			}),
 		})
 			.then((res) => res.json())

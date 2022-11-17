@@ -60,24 +60,24 @@ export default class Login extends React.Component {
 			.then((response) => {
 				if (response.status) {
 					message.success("Login Successful.");
-					sessionStorage.setItem("loggedIn", "true");
-					sessionStorage.setItem("email", response.data.email);
-					sessionStorage.setItem("display_name", response.data.display_name);
-					sessionStorage.setItem("type", response.data.type);
-					sessionStorage.setItem("user_id", response.data.user_id);
+					localStorage.setItem("loggedIn", "true");
+					localStorage.setItem("email", response.data.email);
+					localStorage.setItem("display_name", response.data.display_name);
+					localStorage.setItem("type", response.data.type);
+					localStorage.setItem("user_id", response.data.user_id);
 				} else {
-					sessionStorage.setItem("loggedIn", "false");
+					localStorage.setItem("loggedIn", "false");
 					message.error(response.data, 3);
 					this.formRef.current?.resetFields();
 				}
 				this.setState({ waitingForLogin: false });
 				if (
-					sessionStorage.getItem("loggedIn") !== null &&
-					sessionStorage.getItem("loggedIn") === "true"
+					localStorage.getItem("loggedIn") !== null &&
+					localStorage.getItem("loggedIn") === "true"
 				) {
-					if (sessionStorage.getItem("type").toLowerCase() === "professor")
+					if (localStorage.getItem("type").toLowerCase() === "professor")
 						window.location.replace("/professor");
-					else if (sessionStorage.getItem("type").toLowerCase() === "student")
+					else if (localStorage.getItem("type").toLowerCase() === "student")
 						window.location.replace("/student/home");
 					else message.error("Unknown Type! Please contact the application owner");
 				}

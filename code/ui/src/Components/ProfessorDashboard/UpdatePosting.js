@@ -6,7 +6,7 @@ const { Option } = Select;
 export class UpdatePosting extends Component {
 	onSubmitUpdatePosting = () => {
 		this.props.updateFormRef.current.validateFields().then((values) => {
-			values.professor = sessionStorage.getItem("user_id");
+			values.professor = localStorage.getItem("user_id");
 			values.posting_id = this.props.updateData.posting_id;
 			this.props.submitUpdatePosting(values);
 		});

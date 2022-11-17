@@ -42,7 +42,7 @@ export default class Profile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user_id: sessionStorage.getItem("user_id"),
+			user_id: localStorage.getItem("user_id"),
 			valuesChanged: false,
 			waitingForFetch: false,
 			loading: false,
@@ -50,7 +50,7 @@ export default class Profile extends Component {
 		this.onLogOut = this.onLogOut.bind(this);
 	}
 	onLogOut = () => {
-		sessionStorage.clear();
+		localStorage.clear();
 		message.success("User Logged out successfully.", 1);
 		window.location.replace("/");
 	};
@@ -60,7 +60,7 @@ export default class Profile extends Component {
 		fetch(url, {
 			method: "POST",
 			headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-			body: JSON.stringify({ user_id: sessionStorage.getItem("user_id") }),
+			body: JSON.stringify({ user_id: localStorage.getItem("user_id") }),
 		})
 			.then((res) => res.json())
 			.then((response) => {

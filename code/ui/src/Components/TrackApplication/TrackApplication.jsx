@@ -28,7 +28,7 @@ const MyVerticallyCenteredModal = (props) => (
 export class TrackApplication extends Component {
 	state = {
 		modalShow: false,
-		user_id: sessionStorage.getItem("user_id"),
+		user_id: localStorage.getItem("user_id"),
 		currentJob: {},
 		applications: [],
 		loading: true,

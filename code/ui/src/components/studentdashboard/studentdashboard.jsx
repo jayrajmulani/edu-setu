@@ -34,7 +34,7 @@ const MyVerticallyCenteredModal = (props) => (
 );
 
 export default function StudentDashboard() {
-	const user_id = sessionStorage.getItem("user_id");
+	const user_id = localStorage.getItem("user_id");
 	const [modalShow, setModalShow] = useState(false);
 	const [currentJob, setcurrentJob] = useState({});
 	const [jobs, setJobs] = useState([]);

@@ -15,7 +15,17 @@ export default function NavBar() {
 					key: "profile",
 				},
 				{
-					label: <div onClick={() => window.location.replace("/auth")}>Logout</div>,
+					label: (
+						<div
+							onClick={() => {
+								localStorage.setItem("user_id", null);
+								localStorage.setItem("type", null);
+								window.location.replace("/auth");
+							}}
+						>
+							Logout
+						</div>
+					),
 					key: "logout",
 				},
 			]}

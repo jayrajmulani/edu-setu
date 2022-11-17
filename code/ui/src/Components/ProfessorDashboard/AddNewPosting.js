@@ -6,7 +6,7 @@ const { Option } = Select;
 export class AddNewPosting extends Component {
 	onSubmitAddPosting = () => {
 		this.props.formRef.current.validateFields().then((values) => {
-			values.professor = sessionStorage.getItem("user_id");
+			values.professor = localStorage.getItem("user_id");
 			this.props.submitAddPosting(values);
 		});
 	};
