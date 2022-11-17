@@ -2,7 +2,12 @@ import React from "react";
 import "./Home.css";
 import logo from "../../assets/logo.png";
 import { Layout, Menu, Button, Popconfirm, message } from "antd";
-import { GlobalOutlined, ProfileOutlined, UserOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import {
+	GlobalOutlined,
+	ProfileOutlined,
+	UserOutlined,
+	QuestionCircleOutlined,
+} from "@ant-design/icons";
 import Postings from "../ProfessorDashboard/Postings";
 import Applications from "../ProfessorDashboard/Applications";
 import Profile from "../ProfessorDashboard/Profile";
@@ -36,6 +41,7 @@ export default class Home extends React.Component {
 				renderTab = <Applications />;
 				break;
 			case "profile":
+			default:
 				renderTab = <Profile />;
 		}
 		return (
@@ -47,24 +53,48 @@ export default class Home extends React.Component {
 						width: "100%",
 						backgroundColor: "#f7f7f7",
 						float: "left",
-					}}>
-					<div className="logo">
-						<img src={logo} style={{ width: "100px", height: "50px" }} alt="logo"></img>
+					}}
+				>
+					<div className='logo'>
+						<img src={logo} style={{ width: "100px", height: "50px" }} alt='logo'></img>
 					</div>
 
-					<Menu theme="light" mode="horizontal" style={{ backgroundColor: "#f7f7f7" }} defaultSelectedKeys={["postings"]} onClick={this.onTabChange}>
-						<Menu.Item key="postings" style={{ float: "left" }} icon={<ProfileOutlined />}>
+					<Menu
+						theme='light'
+						mode='horizontal'
+						style={{ backgroundColor: "#f7f7f7" }}
+						defaultSelectedKeys={["postings"]}
+						onClick={this.onTabChange}
+					>
+						<Menu.Item
+							key='postings'
+							style={{ float: "left" }}
+							icon={<ProfileOutlined />}
+						>
 							Postings
 						</Menu.Item>
-						<Menu.Item style={{ float: "left" }} key="applications" icon={<GlobalOutlined />}>
+						<Menu.Item
+							style={{ float: "left" }}
+							key='applications'
+							icon={<GlobalOutlined />}
+						>
 							Applications
 						</Menu.Item>
-						<Menu.Item key="profile" style={{ float: "right" }} icon={<UserOutlined />}>
+						<Menu.Item key='profile' style={{ float: "right" }} icon={<UserOutlined />}>
 							Profile
 						</Menu.Item>
 						<Menu.Item>
-							<Popconfirm title="Are you sure?" onConfirm={this.onLogOut} okText="Yes" cancelText="No" icon={<QuestionCircleOutlined />}>
-								<Button style={{ float: "right", marginTop: "15px" }} type="primary">
+							<Popconfirm
+								title='Are you sure?'
+								onConfirm={this.onLogOut}
+								okText='Yes'
+								cancelText='No'
+								icon={<QuestionCircleOutlined />}
+							>
+								<Button
+									style={{ float: "right", marginTop: "15px" }}
+									type='primary'
+								>
 									Logout
 								</Button>
 							</Popconfirm>

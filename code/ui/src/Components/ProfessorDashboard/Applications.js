@@ -73,7 +73,10 @@ export default class Applications extends React.Component {
 		this.setState({ updateApplicantData: record, updateVisible: true });
 	};
 	populateUpdateData = () => {
-		if (this.updateFormRef.current.getFieldsValue().application_id !== this.state.updateApplicantData.application_id)
+		if (
+			this.updateFormRef.current.getFieldsValue().application_id !==
+			this.state.updateApplicantData.application_id
+		)
 			this.updateFormRef.current.setFieldsValue(this.state.updateApplicantData);
 	};
 	submitUpdateApplication = (finalValues) => {
@@ -109,93 +112,113 @@ export default class Applications extends React.Component {
 					<Title style={{ float: "left", marginTop: "15px" }} level={4}>
 						Applications
 					</Title>
-					<Button style={{ float: "right", marginTop: "15px" }} type="link" icon={<ReloadOutlined />} onClick={this.fetchApplications}>
+					<Button
+						style={{ float: "right", marginTop: "15px" }}
+						type='link'
+						icon={<ReloadOutlined />}
+						onClick={this.fetchApplications}
+					>
 						Refresh
 					</Button>
 				</Header>
 				<Divider></Divider>
 				<Content>
 					<Modal
-						title="Applicants"
-						visible={this.state.visible}
+						title='Applicants'
+						open={this.state.visible}
 						onCancel={this.onClose}
 						footer={null}
 						width={1000}
 						maskClosable={false}
-						centered={true}>
-						<Table rowKey={(record) => record.user_id} bordered size="small" dataSource={this.state.applicantsData.Applications}>
-							<Column title="Student Name" dataIndex="student_display_name" key="student_display_name" />
+						centered={true}
+					>
+						<Table
+							rowKey={(record) => record.user_id}
+							bordered
+							size='small'
+							dataSource={this.state.applicantsData.Applications}
+						>
 							<Column
-								title="Student Email"
-								dataIndex="student_email"
-								key="student_email"
+								title='Student Name'
+								dataIndex='student_display_name'
+								key='student_display_name'
+							/>
+							<Column
+								title='Student Email'
+								dataIndex='student_email'
+								key='student_email'
 								render={(record) => <a href={"mailto:" + record}>{record}</a>}
 							/>
-							<Column title="GPA" dataIndex="student_gpa" key="student_gpa" />
-							<Column title="Major" dataIndex="student_major" key="student_major" />
-							<Column title="Minor" dataIndex="student_minor" key="student_minor" />
-							<Column title="Phone" dataIndex="student_phone" key="student_phone" />
-							<Column title="Year" dataIndex="student_year" key="student_year" />
+							<Column title='GPA' dataIndex='student_gpa' key='student_gpa' />
+							<Column title='Major' dataIndex='student_major' key='student_major' />
+							<Column title='Minor' dataIndex='student_minor' key='student_minor' />
+							<Column title='Phone' dataIndex='student_phone' key='student_phone' />
+							<Column title='Year' dataIndex='student_year' key='student_year' />
 							<Column
-								title="Status"
-								key="status"
+								title='Status'
+								key='status'
 								render={(record) => {
-									return <Tag color={statusColors[record.status.toUpperCase()]}>{record.status.toUpperCase()}</Tag>;
+									return (
+										<Tag color={statusColors[record.status.toUpperCase()]}>
+											{record.status.toUpperCase()}
+										</Tag>
+									);
 								}}
 							/>
 							<Column
-								title="Actions"
-								key="action"
+								title='Actions'
+								key='action'
 								render={(record) => (
-									<Space size="small">
-										<Tooltip title="test">
-											<Button type="link" icon={<EditOutlined />} onClick={() => this.onUpdateApplication(record)} />
+									<Space size='small'>
+										<Tooltip title='test'>
+											<Button
+												type='link'
+												icon={<EditOutlined />}
+												onClick={() => this.onUpdateApplication(record)}
+											/>
 										</Tooltip>
 									</Space>
-								)}></Column>
+								)}
+							></Column>
 						</Table>
 					</Modal>
 					<Modal
-						title="Update Application"
-						visible={this.state.updateVisible}
+						title='Update Application'
+						open={this.state.updateVisible}
 						onCancel={this.onCloseEdit}
 						footer={null}
 						maskClosable={false}
-						centered={true}>
+						centered={true}
+					>
 						<UpdateApplication {...this} {...this.state} {...this.props} />
 					</Modal>
-					<Table loading={this.state.loading} size="small" dataSource={this.state.filteredData}>
+					<Table
+						loading={this.state.loading}
+						size='small'
+						dataSource={this.state.filteredData}
+					>
 						<Column
-							title="Title"
-							key="title"
+							title='Title'
+							key='title'
 							render={(record) => (
-								<Button onClick={() => this.onClickApplicants(record)} type="link">
+								<Button onClick={() => this.onClickApplicants(record)} type='link'>
 									{record.title}
 								</Button>
 							)}
 						/>
-						<Column title="Description" dataIndex="description" key="description" />
-						<Column title="Prerequisites" dataIndex="prerequisites" key="prerequisites" />
-						<Column title="No. of Applicants" key="applicants" render={(record) => <Tag color="blue">{record?.Applications?.length}</Tag>} />
-						{/* <Column
-              title="Actions"
-              key="action"
-              render={(record) => (
-                <Space size="small">
-                  <Tooltip title="Update Posting">
-                    <Button
-                      disabled={this.state.readOnly}
-                      type="link"
-                      icon={<EditOutlined />}
-                      onClick={() => this.onUpdate(record)}
-                    />
-                  </Tooltip>
-                  <Tooltip title="Delete Posting">
-                    <Button disabled type="link" icon={<DeleteOutlined />} />
-                  </Tooltip>
-                </Space>
-              )}
-            ></Column> */}
+						<Column title='Description' dataIndex='description' key='description' />
+						<Column
+							title='Prerequisites'
+							dataIndex='prerequisites'
+							key='prerequisites'
+						/>
+						<Column
+							title='No. of Applicants'
+							key='applicants'
+							render={(record) => (
+								<Tag color='blue'>{record?.Applications?.length}</Tag>
+							)}
+						/>
 					</Table>
 				</Content>
 			</Layout>

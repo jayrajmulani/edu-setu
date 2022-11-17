@@ -1,9 +1,26 @@
 import Layout, { Content, Header } from "antd/lib/layout/layout";
 import React from "react";
-import { Typography, Divider, Table, message, Modal, Button, Space, Tooltip, Input, Popconfirm } from "antd";
+import {
+	Typography,
+	Divider,
+	Table,
+	message,
+	Modal,
+	Button,
+	Space,
+	Tooltip,
+	Input,
+	Popconfirm,
+} from "antd";
 import config from "../../config";
 import Column from "antd/lib/table/Column";
-import { PlusOutlined, EditOutlined, DeleteOutlined, ReloadOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import {
+	PlusOutlined,
+	EditOutlined,
+	DeleteOutlined,
+	ReloadOutlined,
+	QuestionCircleOutlined,
+} from "@ant-design/icons";
 import AddNewPosting from "./AddNewPosting";
 import { UpdatePosting } from "./UpdatePosting";
 const { Title } = Typography;
@@ -28,9 +45,7 @@ export default class Postings extends React.Component {
 		const { data } = this.state;
 		let searchLower = value.toLowerCase();
 		let filtered = data.filter((item) => {
-			if (item.title.toLowerCase().includes(searchLower)) {
-				return true;
-			}
+			return item.title.toLowerCase().includes(searchLower) ? true : false;
 		});
 		this.setState({ filteredData: filtered });
 	};
@@ -160,54 +175,93 @@ export default class Postings extends React.Component {
 					</Title>
 					<Search
 						onChange={this.onSearchChange}
-						placeholder="Search..."
+						placeholder='Search...'
 						allowClear
 						style={{ width: "60%", marginTop: "15px", marginLeft: "8%" }}
 						onSearch={this.onSearch}
-						name="postingSearch"
+						name='postingSearch'
 					/>
-					<Button style={{ float: "right", marginTop: "15px" }} icon={<PlusOutlined />} type="primary" onClick={this.onAddPosting}>
+					<Button
+						style={{ float: "right", marginTop: "15px" }}
+						icon={<PlusOutlined />}
+						type='primary'
+						onClick={this.onAddPosting}
+					>
 						Add posting
 					</Button>
-					<Button style={{ float: "right", marginTop: "15px" }} type="link" icon={<ReloadOutlined />} onClick={this.fetchPostings}>
+					<Button
+						style={{ float: "right", marginTop: "15px" }}
+						type='link'
+						icon={<ReloadOutlined />}
+						onClick={this.fetchPostings}
+					>
 						Refresh
 					</Button>
 				</Header>
 				<Divider></Divider>
 				<Content>
-					<Modal title="Add Posting" visible={this.state.visible} onCancel={this.onClose} footer={null} maskClosable={false} centered={true}>
+					<Modal
+						title='Add Posting'
+						open={this.state.visible}
+						onCancel={this.onClose}
+						footer={null}
+						maskClosable={false}
+						centered={true}
+					>
 						<AddNewPosting {...this} {...this.state} {...this.props} />
 					</Modal>
-					<Modal title="Update Posting" visible={this.state.updateVisible} onCancel={this.onClose} footer={null} maskClosable={false} centered={true}>
+					<Modal
+						title='Update Posting'
+						open={this.state.updateVisible}
+						onCancel={this.onClose}
+						footer={null}
+						maskClosable={false}
+						centered={true}
+					>
 						<UpdatePosting {...this} {...this.state} {...this.props} />
 					</Modal>
-					<Table loading={this.state.loading} size="small" dataSource={this.state.filteredData}>
-						<Column title="Title" dataIndex="title" key="title" />
-						<Column title="Description" dataIndex="description" key="description" />
-						<Column title="Prerequisites" dataIndex="prerequisites" key="prerequisites" />
-						<Column title="Created" dataIndex="created_at" key="created_at" />
-						<Column title="Updated" dataIndex="updated_at" key="updated_at" />
+					<Table
+						loading={this.state.loading}
+						size='small'
+						dataSource={this.state.filteredData}
+					>
+						<Column title='Title' dataIndex='title' key='title' />
+						<Column title='Description' dataIndex='description' key='description' />
 						<Column
-							title="Actions"
-							key="action"
+							title='Prerequisites'
+							dataIndex='prerequisites'
+							key='prerequisites'
+						/>
+						<Column title='Created' dataIndex='created_at' key='created_at' />
+						<Column title='Updated' dataIndex='updated_at' key='updated_at' />
+						<Column
+							title='Actions'
+							key='action'
 							render={(record) => (
-								<Space size="small">
-									<Tooltip title="Update Posting">
-										<Button disabled={this.state.readOnly} type="link" icon={<EditOutlined />} onClick={() => this.onUpdate(record)} />
+								<Space size='small'>
+									<Tooltip title='Update Posting'>
+										<Button
+											disabled={this.state.readOnly}
+											type='link'
+											icon={<EditOutlined />}
+											onClick={() => this.onUpdate(record)}
+										/>
 									</Tooltip>
 									<Popconfirm
-										placement="bottom"
-										title="Are you sure? This would also delete all the corresponding applications and linked data!"
+										placement='bottom'
+										title='Are you sure? This would also delete all the corresponding applications and linked data!'
 										onConfirm={() => this.onDeletePosting(record)}
-										okText="Yes"
-										cancelText="No"
-										icon={<QuestionCircleOutlined />}>
-										<Tooltip title="Delete Posting">
-											<Button type="link" icon={<DeleteOutlined />} />
+										okText='Yes'
+										cancelText='No'
+										icon={<QuestionCircleOutlined />}
+									>
+										<Tooltip title='Delete Posting'>
+											<Button type='link' icon={<DeleteOutlined />} />
 										</Tooltip>
 									</Popconfirm>
 								</Space>
-							)}></Column>
+							)}
+						></Column>
 					</Table>
 				</Content>
 			</Layout>
