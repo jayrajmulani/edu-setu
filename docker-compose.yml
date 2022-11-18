@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   backend:
-    build: ./backend
+    build: ./code/backend
     expose:
      - 5000
     ports:
@@ -14,7 +14,7 @@ services:
       - FLASK_APP=main.py
       - FLASK_DEBUG=1
   ui:
-    build: ./ui
+    build: ./code/ui
     expose:
       - 3000
     ports:
