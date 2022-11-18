@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Button, Card, Modal, Table, Typography, Tag } from "antd";
 
 import config from "../../config";
-import "./TrackApplication.css";
 
 const MyVerticallyCenteredModal = (props) => (
 	<Modal

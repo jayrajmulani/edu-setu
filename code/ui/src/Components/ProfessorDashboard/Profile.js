@@ -28,26 +28,15 @@ const tailFormItemLayout = {
 
 export default class Profile extends Component {
 	formRef = React.createRef();
-	constructor(props) {
-		super(props);
-		this.state = {
-			user_id: localStorage.getItem("user_id"),
-			valuesChanged: false,
-			waitingForFetch: false,
-			loading: false,
-		};
-		this.onLogOut = this.onLogOut.bind(this);
-	}
-
-	onLogOut = () => {
-		localStorage.clear();
-		message.success("User Logged out successfully.", 1);
-		window.location.replace("/");
+	state = {
+		user_id: localStorage.getItem("user_id"),
+		valuesChanged: false,
+		waitingForFetch: true,
+		loading: true,
 	};
 
 	fetchUserDetails = () => {
-		this.setState({ waitingForFetch: true, loading: true });
-		let url = `${config.baseUrl}/get_user_profile`;
+		const url = `${config.baseUrl}/get_user_profile`;
 		fetch(url, {
 			method: "POST",
 			headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
@@ -69,8 +58,8 @@ export default class Profile extends Component {
 				} else {
 					message.error(response.message, 1);
 				}
-			});
-		this.setState({ waitingForFetch: false, loading: false });
+			})
+			.finally(() => this.setState({ waitingForFetch: false, loading: false }));
 	};
 
 	componentDidMount() {
@@ -91,18 +80,18 @@ export default class Profile extends Component {
 					if (response.status) {
 						message.success(response.data, 1);
 						this.fetchUserDetails();
-						this.setState({ loading: false });
 					} else {
 						message.error(response.data, 1);
 					}
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => console.log(err))
+				.finally(() => this.setState({ loading: false }));
 		});
 	};
 
 	render() {
 		return (
-			<Card title='Profile'>
+			<Card title='Profile' loading={this.state.waitingForFetch}>
 				<Form
 					{...formItemLayout}
 					name='userAccount'

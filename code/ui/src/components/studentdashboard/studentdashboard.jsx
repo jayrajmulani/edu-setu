@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {
-	Button,
-	Typography,
-	Table,
-	Card,
-	Input,
-	Modal as AntModal,
-	Menu,
-	Dropdown as AntDropDown,
-} from "antd";
+import { Button, Typography, Table, Card, Input, Modal as AntModal, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
 import config from "../../config";
-import "./StudentDashboard.css";
 
 const MyVerticallyCenteredModal = (props) => (
 	<AntModal
@@ -39,35 +29,29 @@ export default function StudentDashboard() {
 	const [currentJob, setcurrentJob] = useState({});
 	const [jobs, setJobs] = useState([]);
 	const [jobs_all, setJobs_all] = useState([]);
-	const [applications, setApplications] = useState([]);
 	const [loading, setLoading] = useState(true);
 
-	const getAllPostings = () => {
-		fetch(config.baseUrl + "/get_all_postings")
-			.then((response) => response.json())
-			.then((data) => setJobs_all(data.data))
-			.then(() => setLoading(false));
-		fetch(config.baseUrl + "/get_all_applications_by_student", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ student: user_id }),
-		})
-			.then((response) => response.json())
-			.then((data) => setApplications(data.data));
-	};
+	const getAllPostings = async () => {
+		const [jobs_all, applications] = await Promise.all([
+			fetch(config.baseUrl + "/get_all_postings")
+				.then((response) => response.json())
+				.then((data) => data.data),
+			fetch(config.baseUrl + "/get_all_applications_by_student", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ student: user_id }),
+			})
+				.then((response) => response.json())
+				.then((data) => data.data),
+		]);
 
-	useEffect(() => {
-		getAllPostings();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	useEffect(() => {
 		const jobs = [];
-		for (var i = 0; i < jobs_all.length; i++) {
-			var flag = 0;
-			for (var j = 0; j < applications.length; j++) {
+		for (let i = 0; i < jobs_all.length; i++) {
+			let flag = 0;
+			for (let j = 0; j < applications.length; j++) {
 				if (jobs_all[i].posting_id === applications[j].posting_id) {
 					flag = 1;
+					break;
 				}
 			}
 			if (flag === 0) {
@@ -76,8 +60,13 @@ export default function StudentDashboard() {
 		}
 		setJobs_all(jobs);
 		setJobs(jobs);
+		setLoading(false);
+	};
+
+	useEffect(() => {
+		getAllPostings();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [applications]);
+	}, []);
 
 	const apply = (job) => {
 		const posting_id = job.posting_id;
@@ -160,24 +149,23 @@ export default function StudentDashboard() {
 		{
 			title: "Actions",
 			render: (_, record) => (
-				<AntDropDown
-					overlay={
-						<Menu
-							items={[
-								{
-									label: <div onClick={() => apply(record)}>Apply</div>,
-									key: "apply",
-								},
-								{ label: "Save for Later", key: "Save for Later" },
-								{ label: "Get shareable URL", key: "Get shareable URL" },
-							]}
-						/>
-					}
+				<Dropdown
+					menu={{
+						items: [
+							{
+								label: <div onClick={() => apply(record)}>Apply</div>,
+								key: "apply",
+							},
+							{ label: "Save for Later", key: "Save for Later" },
+							{ label: "Get shareable URL", key: "Get shareable URL" },
+						],
+					}}
+					trigger={["click"]}
 				>
-					<Button>
+					<Button type='primary'>
 						Actions <DownOutlined />
 					</Button>
-				</AntDropDown>
+				</Dropdown>
 			),
 		},
 	];

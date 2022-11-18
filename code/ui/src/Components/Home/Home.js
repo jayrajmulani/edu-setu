@@ -7,6 +7,7 @@ import {
 	ProfileOutlined,
 	UserOutlined,
 	QuestionCircleOutlined,
+	LogoutOutlined,
 } from "@ant-design/icons";
 import Postings from "../ProfessorDashboard/Postings";
 import Applications from "../ProfessorDashboard/Applications";
@@ -44,7 +45,7 @@ export default class Home extends React.Component {
 						position: "fixed",
 						zIndex: 1,
 						width: "100%",
-						backgroundColor: "#f7f7f7",
+						backgroundColor: "#fff",
 					}}
 				>
 					<div className='logo'>
@@ -55,36 +56,34 @@ export default class Home extends React.Component {
 						<Menu
 							theme='light'
 							mode='horizontal'
-							style={{ backgroundColor: "#f7f7f7" }}
+							style={{ backgroundColor: "#fff", width: 400 }}
 							defaultSelectedKeys={["postings"]}
 							onClick={this.onTabChange}
+							items={[
+								{ key: "postings", label: "Postings", icon: <ProfileOutlined /> },
+								{
+									key: "applications",
+									label: "Applications",
+									icon: <GlobalOutlined />,
+								},
+								{ key: "profile", label: "Profile", icon: <UserOutlined /> },
+							]}
+						/>
+						<Popconfirm
+							title='Are you sure?'
+							onConfirm={this.onLogOut}
+							okText='Yes'
+							cancelText='No'
+							icon={<QuestionCircleOutlined />}
 						>
-							<Menu.Item key='postings' icon={<ProfileOutlined />}>
-								Postings
-							</Menu.Item>
-							<Menu.Item key='applications' icon={<GlobalOutlined />}>
-								Applications
-							</Menu.Item>
-							<Menu.Item key='profile' icon={<UserOutlined />}>
-								Profile
-							</Menu.Item>
-							<Menu.Item>
-								<Popconfirm
-									title='Are you sure?'
-									onConfirm={this.onLogOut}
-									okText='Yes'
-									cancelText='No'
-									icon={<QuestionCircleOutlined />}
-								>
-									<Button
-										style={{ float: "right", marginTop: "15px" }}
-										type='primary'
-									>
-										Logout
-									</Button>
-								</Popconfirm>
-							</Menu.Item>
-						</Menu>
+							<Button
+								style={{ float: "right", marginTop: "15px" }}
+								type='primary'
+								icon={<LogoutOutlined />}
+							>
+								Logout
+							</Button>
+						</Popconfirm>
 					</div>
 				</Header>
 				<Content style={{ margin: "76px 32px 12px" }}>{this.renderTab()}</Content>

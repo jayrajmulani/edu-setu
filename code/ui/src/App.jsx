@@ -4,10 +4,7 @@ import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-d
 import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
 import NotFound from "./Components/Home/NotFound";
-import StudentProfile from "./Components/StudentProfile/StudentProfile";
-import TrackApplication from "./Components/TrackApplication/TrackApplication";
-import StudentDashboard from "./Components/StudentDashboard/StudentDashboard";
-import NavBar from "./Components/NavBar/NavBar";
+import StudentHome from "./Components/StudentHome/StudentHome";
 
 export default function App() {
 	const authGuard = (Component) => () => {
@@ -26,23 +23,14 @@ export default function App() {
 		if (localStorage.getItem("type").toLowerCase() === "professor")
 			window.location.replace("/professor");
 		else if (localStorage.getItem("type").toLowerCase() === "student")
-			window.location.replace("/student/home");
+			window.location.replace("/student");
 	}
 
 	return (
 		<Router>
-			<Route path='/student'>
-				<NavBar />
-			</Route>
 			<Switch>
-				<Route exact path='/student/home'>
-					<StudentDashboard />
-				</Route>
-				<Route exact path='/student/trackApplications'>
-					<TrackApplication />
-				</Route>
-				<Route exact path='/student/myProfile'>
-					<StudentProfile />
+				<Route path='/student'>
+					<StudentHome />
 				</Route>
 				<Route path='/professor' render={authGuard(Home)}></Route>
 				<Route path='/auth'>

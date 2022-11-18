@@ -3,7 +3,6 @@ import { Component } from "react";
 import { Button, Card, Form, Input, Typography } from "antd";
 
 import config from "../../config";
-import "./StudentProfile.css";
 
 export default class StudentProfile extends Component {
 	state = {
@@ -89,7 +88,7 @@ export default class StudentProfile extends Component {
 						<div style={{ padding: "16px 48px", flex: 1 }}>
 							<Form
 								name='profile'
-								labelCol={{ span: 3 }}
+								labelCol={{ span: 4 }}
 								wrapperCol={{ span: 12 }}
 								onFinish={this.updateProfile}
 								initialValues={{
