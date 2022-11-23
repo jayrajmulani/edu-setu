@@ -71,6 +71,7 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
+        cd code/ui/
         docker build \
             --build-arg AWS_ACCESS_KEY_ID="AKIATZRIR5J5W6AIRSES" \
             --build-arg AWS_SECRET_ACCESS_KEY="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" \
