@@ -37,7 +37,7 @@ export default class Login extends React.Component {
 					this.setState({ register: false });
 					message.success("Registration Successful! You can login to the system now.");
 				} else {
-					message.error(response.data, 3);
+					message.error(response.data);
 					this.registerFormRef.current?.resetFields();
 				}
 				this.setState({ waitingForRegistration: false });
@@ -71,18 +71,20 @@ export default class Login extends React.Component {
 					this.formRef.current?.resetFields();
 				}
 				this.setState({ waitingForLogin: false });
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
 				if (
 					localStorage.getItem("loggedIn") !== null &&
 					localStorage.getItem("loggedIn") === "true"
 				) {
 					if (localStorage.getItem("type").toLowerCase() === "professor")
-						window.location.replace("/professor");
+						this.props.history.push("/professor");
 					else if (localStorage.getItem("type").toLowerCase() === "student")
-						window.location.replace("/student/home");
+						this.props.history.push("/student/home");
 					else message.error("Unknown Type! Please contact the application owner");
 				}
-			})
-			.catch((err) => console.log(err));
+			});
 	};
 
 	render() {

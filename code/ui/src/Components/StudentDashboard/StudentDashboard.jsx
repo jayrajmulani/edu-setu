@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Typography, Table, Card, Input, Modal as AntModal, Dropdown } from "antd";
+import { Button, Typography, Table, Card, Input, Modal as AntModal, Dropdown, message } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
 import config from "../../config";
@@ -78,7 +78,12 @@ export default function StudentDashboard() {
 		fetch(config.baseUrl + "/add_application", requestOptions)
 			.then((response) => response.json())
 			.then((data) => {
-				if (data.status === true) alert("Application submitted");
+				if (data.status === true) {
+					message.success("Application submitted");
+					setModalShow(false);
+				} else {
+					message.error(data.data);
+				}
 			})
 			.finally(() => getAllPostings());
 	};
@@ -99,6 +104,7 @@ export default function StudentDashboard() {
 			title: "Job Id",
 			dataIndex: "posting_id",
 			key: "posting_id",
+			width: 120,
 		},
 		{
 			title: "Title",
@@ -145,9 +151,11 @@ export default function StudentDashboard() {
 			],
 			onFilter: (value, record) => record.location === value,
 			sorter: (a, b) => a.location.localeCompare(b.location),
+			width: 180,
 		},
 		{
 			title: "Actions",
+			width: 150,
 			render: (_, record) => (
 				<Dropdown
 					menu={{

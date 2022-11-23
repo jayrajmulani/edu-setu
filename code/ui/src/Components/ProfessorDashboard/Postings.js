@@ -60,7 +60,6 @@ export default class Postings extends React.Component {
 			.then((res) => res.json())
 			.then((response) => {
 				if (response.status) {
-					console.log(response.data);
 					this.setState({ data: response.data, filteredData: response.data });
 				} else {
 					message.error(response.data, 1);

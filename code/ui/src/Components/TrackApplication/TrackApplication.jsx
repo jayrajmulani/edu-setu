@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Card, Modal, Table, Typography, Tag } from "antd";
+import { Button, Card, Modal, Table, Typography, Tag, message } from "antd";
 
 import config from "../../config";
 
@@ -61,9 +61,10 @@ export class TrackApplication extends Component {
 		await fetch(config.baseUrl + "/update_application", requestOptions2)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
 				if (data.status === true) {
-					alert("Application Withdrawn.");
+					message.success("Application Withdrawn.");
+				} else {
+					message.error(data.data);
 				}
 			});
 		this.getAllApplications();
@@ -83,6 +84,7 @@ export class TrackApplication extends Component {
 				title: "Application Id",
 				dataIndex: "application_id",
 				key: "application_id",
+				width: 130,
 			},
 			{
 				title: "Applied On",

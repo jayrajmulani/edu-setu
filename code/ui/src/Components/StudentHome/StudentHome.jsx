@@ -14,13 +14,13 @@ import StudentDashboard from "../StudentDashboard/StudentDashboard";
 
 const { Content } = Layout;
 
-export default function Home() {
+export default function Home({ history }) {
 	const [selected_tab, setSelectedTab] = useState("");
 
 	const handleLogout = () => {
 		localStorage.clear();
 		message.success("User Logged out successfully.", 1);
-		window.location.replace("/");
+		history.push("/auth");
 	};
 
 	const renderTab = () => {
