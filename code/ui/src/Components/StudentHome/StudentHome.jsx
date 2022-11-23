@@ -8,9 +8,9 @@ import {
 	UserOutlined,
 } from "@ant-design/icons";
 
-import StudentDashboard from "../StudentDashboard/StudentDashboard";
 import TrackApplication from "../TrackApplication/TrackApplication";
 import StudentProfile from "../StudentProfile/StudentProfile";
+import StudentDashboard from "../StudentDashboard/StudentDashboard";
 
 const { Content } = Layout;
 
