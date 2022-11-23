@@ -21,7 +21,7 @@ const MyVerticallyCenteredModal = (props) => (
 		<Typography.Title level={5}>Pre-requisites</Typography.Title>
 		<Typography.Text>{props.currentJob.prerequisites}</Typography.Text>
 	</AntModal>
-);
+); 
 
 export default function StudentDashboard() {
 	const user_id = localStorage.getItem("user_id");
