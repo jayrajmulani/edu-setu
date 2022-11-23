@@ -29,7 +29,7 @@
         "memoryReservation": 128,
         "volumesFrom": [],
         "stopTimeout": null,
-        "image": "dkr.ecr.us-east-1.amazonaws.com/aws-ecs-se-ecr:latest",
+        "image": "261004323451.dkr.ecr.us-east-1.amazonaws.com/aws-ecs-se-ecr:latest",
         "startTimeout": null,
         "firelensConfiguration": null,
         "dependsOn": null,
