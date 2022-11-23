@@ -7,7 +7,7 @@ WORKDIR /usr/src/code/ui
 
 COPY . /usr/src/code/ui/
 
-RUN npm install
+RUN npm ci
 
 RUN npm run build
 
