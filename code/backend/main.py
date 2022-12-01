@@ -83,5 +83,13 @@ def edit_profile():
 def get_applications_for_professor():
     return professor_api.get_applications_for_professor(request.get_json(force=True))
 
+@app.route("/add_saved_job", methods=["POST"])
+def add_save_job():
+    return student_apis.save_job(request.get_json(force=True))
+
+@app.route("/get_saved_jobs", methods=["POST"])
+def get_save_job():
+    return student_apis.get_saved_jobs(request.get_json(force=True))
+
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')
