@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from "react";
-import { Button, Card, Form, Input, Typography } from "antd";
+import { Button, Card, Form, Input, message, Typography } from "antd";
 
 import config from "../../config";
 
@@ -53,7 +53,9 @@ export default class StudentProfile extends Component {
 		await fetch(config.baseUrl + "/edit_profile", requestOptions)
 			.then((response) => response.json())
 			.then((data) => {
-				if (data.status === true) alert("Profile updated succesfully!");
+				if (data.status === true) {
+					message.success("Profile updated succesfully!");
+				} else message.error(data.data);
 			});
 
 		this.getUserProfile();

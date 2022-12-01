@@ -11,7 +11,7 @@
 [![DOI](https://zenodo.org/badge/527647386.svg)](https://zenodo.org/badge/latestdoi/527647386)
 [![Travis](https://app.travis-ci.com/jayrajmulani/group1-se-homeworks.svg?branch=main)](https://app.travis-ci.com/github/jayrajmulani/group1-se-homeworks/pull_requests)
 [![Contributors](https://img.shields.io/github/contributors/jayrajmulani/edu-setu)](https://github.com/jayrajmulani/edu-setu/graphs/contributors)
-
+[![Deploy to Amazon ECS](https://github.com/ekanshsinghal/edu-setu-group26-proj2/actions/workflows/aws.yml/badge.svg)](https://github.com/ekanshsinghal/edu-setu-group26-proj2/actions/workflows/aws.yml)
 ---
 
 ## Table of Contents

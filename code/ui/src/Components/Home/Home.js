@@ -23,7 +23,7 @@ export default class Home extends React.Component {
 	onLogOut = () => {
 		localStorage.clear();
 		message.success("User Logged out successfully.", 1);
-		window.location.replace("/");
+		this.props.history.push("/auth");
 	};
 
 	renderTab = () => {
