@@ -26,6 +26,7 @@ RUN mv -f admin/* instantclient_21_8/network/admin/
 
 ENV ORACLE_HOME=/usr/src/code/backend/instantclient_21_8
 ENV DYLD_LIBRARY_PATH=$ORACLE_HOME
+ENV LD_LIBRARY_PATH=$ORACLE_HOME
 ENV PATH=$ORACLE_HOME:$PATH
 ENV TNS_ADMIN=$ORACLE_HOME/network/admin
 
