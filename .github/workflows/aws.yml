@@ -52,8 +52,8 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: AKIATZRIR5J5W6AIRSES
-        aws-secret-access-key: 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
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
         # aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
 
@@ -73,8 +73,8 @@ jobs:
         # be deployed to ECS.
         cd code/ui/
         docker build \
-            --build-arg AWS_ACCESS_KEY_ID="AKIATZRIR5J5W6AIRSES" \
-            --build-arg AWS_SECRET_ACCESS_KEY="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" \
+            --build-arg AWS_ACCESS_KEY_ID="" \
+            --build-arg AWS_SECRET_ACCESS_KEY="" \
             --build-arg AWS_DEFAULT_REGION="us-east-1" \
             -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
