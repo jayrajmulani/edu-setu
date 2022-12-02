@@ -452,6 +452,7 @@ def update_application(data):
         return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
+        print(data)
         app_id = data["application_id"]
         status = data["status"]
         remarks = data["remarks"] if "remarks" in  data.keys() else None
@@ -536,9 +537,8 @@ def get_saved_jobs(data):
                     description: string,
                     location: string,
                     prerequisites: string,
-                    created_at: string, (of the application, NOT the posting)
-                    updated_at: string, (of the application, NOT the posting)
-                    professor_user_id: number
+                    department: string,
+                    professor_display_name: string
                 }
             ]
         else:

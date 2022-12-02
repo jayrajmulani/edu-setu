@@ -75,6 +75,10 @@ def get_user_profile():
 def update_application():
     return student_apis.update_application(request.get_json(force=True))
 
+@app.route("/update_all_applications", methods=["POST"])
+def reject_applications():
+    return professor_api.update_all_applications(request.get_json(force=True))
+
 @app.route("/edit_profile", methods=["POST"])
 def edit_profile():
     return auth.edit_profile(request.get_json(force=True))

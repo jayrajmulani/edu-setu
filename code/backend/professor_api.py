@@ -1,6 +1,7 @@
 from utils import *
 import bcrypt
 import datetime
+import student_apis
 
 def add_posting(data):
     
@@ -354,6 +355,7 @@ order by postings.POSTING_ID'''
             con.close()
         except:
             pass
+        print(response)
         return prepare_response(True, response)
     except Exception as e:
         print(e)
@@ -397,6 +399,72 @@ def delete_posting(data):
         con.commit()
         return prepare_response(
             True, f"Posting Deleted."
+        )
+    except Exception as e:
+        print(e)
+        return prepare_response(False, str(e))
+    finally:
+        disconnect(con)
+
+# Assumes that the applications being sent to this function are only for a specific posting id
+def update_all_applications(data):
+    
+    '''
+    ```
+    /update_all_applications [POST]
+    Request:
+    {
+        posting_id: number,
+        application_id: number,
+        remarks: string,
+        applications: // A list of all the applications for this position_id
+			[
+				{
+					application_id: number
+					student_user_id: number,
+					student_display_name: string,
+					student_email: string,
+					student_phone: string,
+					student_gpa: float,
+					student_major: string,
+					student_minor: string,
+					student_year: string,
+					status: string // This is the status of the application and NOT the response.
+					remarks: string
+				}
+			]
+    }
+    Response:
+    {
+        status: boolean
+        data: (Success / Error message as per status)
+        // UPDATED_AT timestamp should be auto updated by the API
+    }
+    ```
+    '''
+    
+    
+    try:
+        con = connect()
+    except:
+        return prepare_response(False, "Unable to create DB connection")
+    try:
+        # Get the data from JSON Payload
+        posting_id = data["posting_id"]
+        remarks = data["remarks"] if "remarks" in  data.keys() else None
+        applications = data["applications"]
+        # Update the applications with rejected status
+        cur = con.cursor()
+        for i in applications:
+            if i["status"] in ["selected", "rejected"]:
+                continue
+            else:
+                query = "UPDATE APPLICATIONS SET STATUS = :1, REMARKS = :2 , UPDATED_AT = SYSTIMESTAMP WHERE APPLICATION_ID = :3"
+                params = ["rejected",remarks,i["application_id"]]
+                cur.execute(query, params)
+                con.commit()
+        return prepare_response(
+            True, f"Application Updated Successfully."
         )
     except Exception as e:
         print(e)
