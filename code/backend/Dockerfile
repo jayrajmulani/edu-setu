@@ -1,45 +1,33 @@
-import cx_Oracle
-import sys
-from config import *
+FROM python:latest
+
+RUN apt-get update -y
+# RUN apt-get install -y python3-pip python3
+
+RUN mkdir -p /opt/oracle
+RUN cd /opt/oracle
+
+RUN mkdir -p /usr/src/code/backend
+WORKDIR /usr/src/code/backend
+
+COPY requirements.txt /usr/src/code/backend/requirements.txt
+RUN pip3 install -r requirements.txt
+RUN curl -O https://download.oracle.com/otn_software/linux/instantclient/218000/instantclient-basiclite-linux.x64-21.8.0.0.0dbru.zip 
 
 
-def makeDictFactory(cursor):
-    columnNames = [d[0].lower() for d in cursor.description]
+RUN apt-get install libaio1
 
-    def createRow(*args):
-        return dict(zip(columnNames, args))
-    return createRow
+COPY . /usr/src/code/backend/
+# RUN pip3 install -r requirements.txt
 
-connected = False
+RUN apt-get install unzip
+RUN unzip instantclient-basiclite-linux.x64-21.8.0.0.0dbru.zip 
 
-def connect():
-    
-    if not connected:
-        try:
-            if sys.platform.startswith("darwin"):
-                cx_Oracle.init_oracle_client(lib_dir="instantclient_19_8") # mac - Change it to the directory where you have this folder.
-            elif sys.platform.startswith("win32"):
-                cx_Oracle.init_oracle_client(lib_dir="instantclient_21_7")
-            elif sys.platform.startswith("linux"):
-                cx_Oracle.init_oracle_client(lib_dir="instantclient_21_8")
-            else:
-                cx_Oracle.init_oracle_client()
-        except Exception as e:
-            con = None
-        try:
-            con = cx_Oracle.connect(db_user, db_pass, db_conn)
-        except Exception as e:
-            con = None
-    return con
+RUN mv -f admin/* instantclient_21_8/network/admin/
 
+ENV ORACLE_HOME=/usr/src/code/backend/instantclient_21_8
+ENV DYLD_LIBRARY_PATH=$ORACLE_HOME
+ENV PATH=$ORACLE_HOME:$PATH
+ENV TNS_ADMIN=$ORACLE_HOME/network/admin
 
-def disconnect(con):
-    try:
-        if con:
-            con.close()
-    except:
-        pass
-
-
-def prepare_response(status, data):
-    return {"status": status, "data": data}
+ENTRYPOINT [ "flask" ]
+CMD [ "run" , "--host=0.0.0.0" ,"--port=5000"]
