@@ -2,6 +2,8 @@ from utils import *
 import bcrypt
 import datetime
 import student_apis
+import smtplib
+from email.message import EmailMessage
 
 def add_posting(data):
     
@@ -498,8 +500,8 @@ def send_email(data):
         subject = data["subject"]
         message = data["message"]
 
-        email_address = "fromemail@gmail.com"
-        email_password = "12345678"
+        email_address = "2017it0638@svce.ac.in"
+        email_password = "8778109200"
 
         # create email
         msg = EmailMessage()
@@ -512,7 +514,7 @@ def send_email(data):
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(email_address, email_password)
             smtp.send_message(msg)
-        return True
+        # return True
 
 
         return prepare_response(
