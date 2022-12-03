@@ -75,6 +75,10 @@ def get_user_profile():
 def update_application():
     return student_apis.update_application(request.get_json(force=True))
 
+@app.route("/update_all_applications", methods=["POST"])
+def reject_applications():
+    return professor_api.update_all_applications(request.get_json(force=True))
+
 @app.route("/edit_profile", methods=["POST"])
 def edit_profile():
     return auth.edit_profile(request.get_json(force=True))
@@ -83,5 +87,17 @@ def edit_profile():
 def get_applications_for_professor():
     return professor_api.get_applications_for_professor(request.get_json(force=True))
 
+@app.route("/add_saved_job", methods=["POST"])
+def add_save_job():
+    return student_apis.save_job(request.get_json(force=True))
+
+@app.route("/get_saved_jobs", methods=["POST"])
+def get_save_job():
+    return student_apis.get_saved_jobs(request.get_json(force=True))
+
+@app.route("/send_email", methods=["POST"])
+def send_email():
+    return professor_api.send_email(request.get_json(force=True))
+
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True,host='0.0.0.0',threaded=True)

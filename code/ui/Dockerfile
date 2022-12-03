@@ -1,13 +1,13 @@
 FROM node:latest
 
-RUN mkdir -p /usr/src/ui
+RUN mkdir -p /usr/src/code/ui
 
-WORKDIR /usr/src/ui
+WORKDIR /usr/src/code/ui
 
 
-COPY . /usr/src/ui/
+COPY . /usr/src/code/ui/
 
-RUN npm install
+RUN npm ci
 
 RUN npm run build
 

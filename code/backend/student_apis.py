@@ -470,3 +470,129 @@ def update_application(data):
         return prepare_response(False, str(e))
     finally:
         disconnect(con)
+
+
+def save_job(data):
+    
+    '''
+    ```
+    /save_job
+    Request:
+    {
+        student: number,
+        posting_id: number
+    }
+    Response:
+    {
+        status: boolean
+        data: message (Success / Error message as per status)
+        // CREATED_AT and UPDATED_AT timestamps to be appropriately set by the API
+    }
+    ```
+    '''
+    
+    try:
+        con = connect()
+    except:
+        return prepare_response(False, "Unable to create DB connection")
+    try:
+        # Get the data from JSON Payload
+        student = data["user_id"]
+        Posting_id = data["posting_id"]
+        # Save job in database
+        cur = con.cursor()
+        query = "INSERT INTO SAVED_JOBS (STUDENT, POSTING_ID) VALUES (:1,:2)"
+        params = [student, Posting_id]
+        cur.execute(query, params)
+        con.commit()
+        return prepare_response(
+            True, f"Job Saved Successfully."
+        )
+    except Exception as e:
+        print(e)
+        return prepare_response(False, str(e))
+    finally:
+        disconnect(con)
+
+def get_saved_jobs(data):
+
+    '''
+    ```
+    /get_saved_jobs
+    Request:
+    {
+        student: number
+    }
+    Response:
+    {
+        status: boolean,
+
+        if status is True:
+            data:
+            [
+                {
+                    posting_id: number,
+                    title: string,
+                    description: string,
+                    location: string,
+                    prerequisites: string,
+                    created_at: string, (of the application, NOT the posting)
+                    updated_at: string, (of the application, NOT the posting)
+                    professor_user_id: number
+                }
+            ]
+        else:
+        data: string (error message)
+    }
+    ```
+    '''
+    
+    try:
+        con = connect()
+        curs = con.cursor()
+    except Exception as e:
+        print(e)
+        return prepare_response(False, "Unable to create DB connection")
+    try:
+        # Get the data from JSON Payload
+        student = data["user_id"]
+        # Get saved jobs from database
+        query = ''' WITH professor_data
+                        AS (SELECT  postings.professor,
+                                    users.display_name          AS professor_display_name,
+                                    professors.department,
+                                    postings.POSTING_ID         AS postingID,
+                                    postings.PREREQUISITES,
+                                    postings.title,
+                                    postings.description,
+                                    postings.LOCATION
+                                    
+                            FROM   postings, users, professors
+
+                            WHERE   postings.professor = professors.user_id
+                            AND     users.user_id = professors.user_id)
+
+                    SELECT SAVED_JOBS.POSTING_ID AS posting_id, 
+                            title, description, location, prerequisites, department, professor_display_name
+
+                    FROM    professor_data, SAVED_JOBS
+
+                    WHERE SAVED_JOBS.posting_id = professor_data.postingID AND SAVED_JOBS.STUDENT = :1
+        '''
+        params = [student]
+        curs.execute(query, params)
+        curs.rowfactory = makeDictFactory(curs)
+        response = curs.fetchall()
+        try:
+            con.close()
+        except:
+            pass
+        return prepare_response(True, response)
+    except Exception as e:
+        print(e)
+        return {"status": False, "data": str(e)}
+    finally:
+        try:
+            con.close()
+        except:
+            pass

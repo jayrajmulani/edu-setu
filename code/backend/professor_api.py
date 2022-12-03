@@ -1,6 +1,10 @@
 from utils import *
 import bcrypt
 import datetime
+import student_apis
+import smtplib
+from email.message import EmailMessage
+import os
 
 def add_posting(data):
     
@@ -354,6 +358,7 @@ order by postings.POSTING_ID'''
             con.close()
         except:
             pass
+        # print(response)
         return prepare_response(True, response)
     except Exception as e:
         print(e)
@@ -404,3 +409,129 @@ def delete_posting(data):
     finally:
         disconnect(con)
 
+# Assumes that the applications being sent to this function are only for a specific posting id
+def update_all_applications(data):
+    
+    '''
+    ```
+    /update_all_applications [POST]
+    Request:
+    {
+        posting_id: number,
+        application_id: number,
+        remarks: string,
+        applications: // A list of all the applications for this position_id
+			[
+				{
+					application_id: number
+					student_user_id: number,
+					student_display_name: string,
+					student_email: string,
+					student_phone: string,
+					student_gpa: float,
+					student_major: string,
+					student_minor: string,
+					student_year: string,
+					status: string // This is the status of the application and NOT the response.
+					remarks: string
+				}
+			]
+    }
+    Response:
+    {
+        status: boolean
+        data: (Success / Error message as per status)
+        // UPDATED_AT timestamp should be auto updated by the API
+    }
+    ```
+    '''
+    
+    
+    try:
+        con = connect()
+    except:
+        return prepare_response(False, "Unable to create DB connection")
+    try:
+        # Get the data from JSON Payload
+        posting_id = data["posting_id"]
+        remarks = data["remarks"] if "remarks" in  data.keys() else None
+        applications = data["applications"]
+        # Update the applications with rejected status
+        cur = con.cursor()
+        for i in applications:
+            if i["status"] in ["selected", "rejected"]:
+                continue
+            else:
+                query = "UPDATE APPLICATIONS SET STATUS = :1, REMARKS = :2 , UPDATED_AT = SYSTIMESTAMP WHERE APPLICATION_ID = :3"
+                params = ["rejected",remarks,i["application_id"]]
+                cur.execute(query, params)
+                con.commit()
+        return prepare_response(
+            True, f"Application Updated Successfully."
+        )
+    except Exception as e:
+        print(e)
+        return prepare_response(False, str(e))
+    finally:
+        disconnect(con)
+
+def send_email(data):
+    
+    '''
+    ```
+    Request:
+    {
+        to: string (student email address), 
+        professor_name: string (professor name),
+        subject: string (email subject),
+        message: string (email content),
+        posting_id: number (job posting id)
+    }
+    Response:
+    {
+        status: boolean
+        data: message (Success / Error message as per status)
+    }
+    ```
+    '''
+    
+    try:
+        # Get the data from JSON Payload
+        to = data["to"]
+        posting_id = data["posting_id"]
+        if "professor_name" in data:
+            professor_name = data["professor_name"]
+        else:
+            professor_name = "Professor"
+        if "subject" in data:
+            subject = data["subject"]
+        else:
+            subject = "Your application status has been updated"
+        if "message" in data:
+            message = "From " + professor_name + "\n\n" + data["message"] + "\nPosting ID: " + str(posting_id)
+        else:
+            message = "Unfortunately, you have not been selected for " + str(posting_id) + ". Thank you!"
+
+        email_address = os.environ["SMTP_EMAIL"]
+        email_password = os.environ["SMTP_PASSWORD"]
+
+        # create email
+        msg = EmailMessage()
+        msg['Subject'] = subject
+        msg['From'] = email_address
+        msg['To'] = to
+        msg.set_content(message)
+
+        # send email
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+            smtp.login(email_address, email_password)
+            smtp.send_message(msg)
+        # return True
+
+
+        return prepare_response(
+            True, f"Email sent successfully."
+        )
+    except Exception as e:
+        print(e)
+        return prepare_response(False, str(e))
