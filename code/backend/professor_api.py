@@ -508,7 +508,7 @@ def send_email(data):
         else:
             subject = "Your application status has been updated"
         if "message" in data:
-            message = "From " + professor_name + "\n\n" + data["message"] + "\n\Posting ID: " + str(posting_id)
+            message = "From " + professor_name + "\n\n" + data["message"] + "\nPosting ID: " + str(posting_id)
         else:
             message = "Unfortunately, you have not been selected for " + str(posting_id) + ". Thank you!"
 
