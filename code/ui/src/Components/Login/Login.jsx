@@ -285,7 +285,12 @@ export default class Login extends React.Component {
 							</>
 						) : (
 							<>
-								<Form.Item name='department' label='Department' hasFeedback>
+								<Form.Item name='department' label='Department' hasFeedback rules={[
+								{
+									required: true,
+									message: "Please input your Department!",
+								},
+							]}> 
 									<Input />
 								</Form.Item>
 								<Form.Item name='designation' label='Designation' hasFeedback>

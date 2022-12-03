@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, message, Modal, Button, Space, Tooltip, Tag, Card } from "antd";
+import { Table, message, Modal, Button, Space, Tag, Card } from "antd";
 import config from "../../config";
 import Column from "antd/lib/table/Column";
 import { EditOutlined, ReloadOutlined } from "@ant-design/icons";
@@ -10,6 +10,7 @@ const statusColors = {
 	IN_PROGRESS: "blue",
 	SELECTED: "success",
 	REJECTED: "red",
+	SHORTLISTED:"yellow",
 };
 
 export default class Applications extends React.Component {

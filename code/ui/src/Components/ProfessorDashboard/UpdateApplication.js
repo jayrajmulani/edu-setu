@@ -57,6 +57,9 @@ export default class UpdateApplication extends Component {
 						<Option key='in_progress' value='in_progress'>
 							In Progress
 						</Option>
+						<Option key='shortlisted' value='shortlisted'>
+							Shortlisted
+						</Option>
 						<Option key='selected' value='selected'>
 							Selected
 						</Option>
