@@ -49,7 +49,6 @@ export default class Applications extends React.Component {
 			.then((res) => res.json())
 			.then((response) => {
 				if (response.status) {
-					console.log(response.data);
 					this.setState({ data: response.data, filteredData: response.data });
 				} else {
 					message.error(response.data, 1);
@@ -158,13 +157,11 @@ export default class Applications extends React.Component {
 							key='action'
 							render={(record) => (
 								<Space size='small'>
-									<Tooltip title='test'>
-										<Button
-											type='link'
-											icon={<EditOutlined />}
-											onClick={() => this.onUpdateApplication(record)}
-										/>
-									</Tooltip>
+									<Button
+										type='link'
+										icon={<EditOutlined />}
+										onClick={() => this.onUpdateApplication(record)}
+									/>
 								</Space>
 							)}
 						></Column>
