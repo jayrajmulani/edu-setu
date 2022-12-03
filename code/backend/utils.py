@@ -11,11 +11,9 @@ def makeDictFactory(cursor):
     return createRow
 
 connected = False
-con = None
 
 def connect():
-    global con
-    # print("Connection request", con)
+
     if not connected:
         try:
             if sys.platform.startswith("darwin"):
