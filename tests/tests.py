@@ -165,6 +165,13 @@ def test_edit_profile():
     assert type(json_response['data']) is str
 
 
+def test_email():
+    request = {"to": "test@test.com", "professor_name": "rahul", "subject": "testing", "message": "email body", "posting_id": 123 }
+    request = json.dumps(request)
+    response = app.test_client().post(f'{base_url}/send_email', data=request)
 
+    assert response.status_code ==200
+    json_response = json.loads(response.data.decode("utf-8"))
 
+    assert type(json_response['data']) is str
 
