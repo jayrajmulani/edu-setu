@@ -100,4 +100,4 @@ def send_email():
     return professor_api.send_email(request.get_json(force=True))
 
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True,host='0.0.0.0',threaded=True)

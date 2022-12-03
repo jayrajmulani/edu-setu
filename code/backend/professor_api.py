@@ -358,7 +358,7 @@ order by postings.POSTING_ID'''
             con.close()
         except:
             pass
-        print(response)
+        # print(response)
         return prepare_response(True, response)
     except Exception as e:
         print(e)
