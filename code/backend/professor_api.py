@@ -4,6 +4,7 @@ import datetime
 import student_apis
 import smtplib
 from email.message import EmailMessage
+import os
 
 def add_posting(data):
     
@@ -498,10 +499,10 @@ def send_email(data):
         to = data["to"]
         professor_name = data["professor_name"]
         subject = data["subject"]
-        message = data["message"]
+        message = "From " + professor_name + "\n\n" + data["message"]
 
-        email_address = "2017it0638@svce.ac.in"
-        email_password = "8778109200"
+        email_address = os.environ["SMTP_EMAIL"]
+        email_password = os.environ["SMTP_PASSWORD"]
 
         # create email
         msg = EmailMessage()
