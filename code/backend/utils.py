@@ -11,13 +11,15 @@ def makeDictFactory(cursor):
     return createRow
 
 connected = False
+con = None
 
 def connect():
-
+    global con
+    # print("Connection request", con)
     if not connected:
         try:
             if sys.platform.startswith("darwin"):
-                cx_Oracle.init_oracle_client(lib_dir="instantclient_19_8") # mac - Change it to the directory where you have this folder.
+                cx_Oracle.init_oracle_client(lib_dir="/Users/rahul/Downloads/instantclient_19_8") # mac - Change it to the directory where you have this folder.
             elif sys.platform.startswith("win32"):
                 cx_Oracle.init_oracle_client(lib_dir="instantclient_21_7")
             elif sys.platform.startswith("linux"):
