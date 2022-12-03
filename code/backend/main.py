@@ -95,5 +95,9 @@ def add_save_job():
 def get_save_job():
     return student_apis.get_saved_jobs(request.get_json(force=True))
 
+@app.route("/send_email", methods=["POST"])
+def send_email():
+    return professor_api.send_email(request.get_json(force=True))
+
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0')

@@ -472,3 +472,52 @@ def update_all_applications(data):
     finally:
         disconnect(con)
 
+def send_email(data):
+    
+    '''
+    ```
+    Request:
+    {
+        to: string (student email address), 
+        professor_name: string (professor name),
+        subject: string (email subject),
+        message: string (email content)
+    }
+    Response:
+    {
+        status: boolean
+        data: message (Success / Error message as per status)
+    }
+    ```
+    '''
+    
+    try:
+        # Get the data from JSON Payload
+        to = data["to"]
+        professor_name = data["professor_name"]
+        subject = data["subject"]
+        message = data["message"]
+
+        email_address = "fromemail@gmail.com"
+        email_password = "12345678"
+
+        # create email
+        msg = EmailMessage()
+        msg['Subject'] = subject
+        msg['From'] = email_address
+        msg['To'] = to
+        msg.set_content(message)
+
+        # send email
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+            smtp.login(email_address, email_password)
+            smtp.send_message(msg)
+        return True
+
+
+        return prepare_response(
+            True, f"Email sent successfully."
+        )
+    except Exception as e:
+        print(e)
+        return prepare_response(False, str(e))
