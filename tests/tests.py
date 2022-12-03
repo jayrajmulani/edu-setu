@@ -11,7 +11,7 @@ import student_apis
 import auth
 from main import app
 
-base_url = "http://140.238.250.0:5000"
+base_url = "http://se-backend-load-balancer-984343860.us-east-1.elb.amazonaws.com"
     
 def test_login():
     request = { "email":"professor@ncsu.edu", "password": "12345678"}
