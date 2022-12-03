@@ -12,6 +12,7 @@ import {
 import Postings from "../ProfessorDashboard/Postings";
 import Applications from "../ProfessorDashboard/Applications";
 import Profile from "../ProfessorDashboard/Profile";
+import Shortlisted from "../ProfessorDashboard/Shortlisted";
 
 const { Header, Content } = Layout;
 
@@ -32,6 +33,8 @@ export default class Home extends React.Component {
 				return <Applications />;
 			case "profile":
 				return <Profile />;
+			case "shortlisted":
+				return <Shortlisted />;	
 			default:
 				return <Postings />;
 		}
@@ -56,14 +59,19 @@ export default class Home extends React.Component {
 						<Menu
 							theme='light'
 							mode='horizontal'
-							style={{ backgroundColor: "#fff", width: 400 }}
+							style={{ backgroundColor: "#fff", width: 520 }}
 							defaultSelectedKeys={["postings"]}
 							onClick={this.onTabChange}
 							items={[
 								{ key: "postings", label: "Postings", icon: <ProfileOutlined /> },
 								{
 									key: "applications",
-									label: "Applications",
+									label: "All Applicants",
+									icon: <GlobalOutlined />,
+								},
+								{
+									key: "shortlisted",
+									label: "Shortlisted",
 									icon: <GlobalOutlined />,
 								},
 								{ key: "profile", label: "Profile", icon: <UserOutlined /> },
