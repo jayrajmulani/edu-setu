@@ -25,15 +25,16 @@ def get_all_users():
     }
     ```
     '''
-    
-    con = connect()
-    if not con:
-        return prepare_response(False,  "Unable to connect to database.")
-    try:
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False,  "Unable to connect to database.")
+    global con, connected
+    if not con or not connected:
+        con = connect()
+        if not con:
+            return prepare_response(False,  "Unable to connect to database.")
+        try:
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False,  "Unable to connect to database.")
     try:
         query = '''SELECT * FROM USERS'''
         curs.execute(query)
@@ -47,11 +48,11 @@ def get_all_users():
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass
 
 def get_all_applications_by_student(data):
     
@@ -102,15 +103,16 @@ def get_all_applications_by_student(data):
 ```
     
     '''
-    
-    con = connect()
-    if not con:
-        return prepare_response(False,  "Unable to connect to database.")
-    try:
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False,  "Unable to connect to database.")
+    global con, connected
+    if not con or not connected:
+        con = connect()
+        if not con:
+            return prepare_response(False,  "Unable to connect to database.")
+        try:
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False,  "Unable to connect to database.")
     try:
         student = data["student"]
         query = '''WITH student_data
@@ -183,11 +185,11 @@ AND student = :1'''
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass
 
 
 def get_specific_application(data):
@@ -215,15 +217,16 @@ def get_specific_application(data):
     }
     ```
     '''
-    
-    con = connect()
-    if not con:
-        return prepare_response(False,  "Unable to connect to database.")
-    try:
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False,  "Unable to connect to database.")
+    global con, connected
+    if not con or not connected:
+        con = connect()
+        if not con:
+            return prepare_response(False,  "Unable to connect to database.")
+        try:
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False,  "Unable to connect to database.")
     try:
         application = data["application"]
         query = '''SELECT * FROM APPLICATIONS WHERE APPLICATION_ID = :1'''
@@ -239,11 +242,11 @@ def get_specific_application(data):
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass
 
 
 def add_application(data):
@@ -266,11 +269,12 @@ def add_application(data):
     }
     ```
     '''
-    
-    try:
-        con = connect()
-    except:
-        return prepare_response(False, "Unable to create DB connection")
+    global con, connected
+    if not con or not connected:
+        try:
+            con = connect()
+        except:
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         student = data["user_id"]
@@ -289,8 +293,8 @@ def add_application(data):
     except Exception as e:
         print(e)
         return prepare_response(False, str(e))
-    finally:
-        disconnect(con)
+    # finally:
+    #     disconnect(con)
 
 
 def get_all_application():
@@ -341,14 +345,17 @@ Response:
 }
     ```
     '''
-    con = connect()
-    if not con:
-        return prepare_response(False,  "Unable to connect to database.")
-    try:
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False,  "Unable to connect to database.")
+
+    global con, connected
+    if not con or not connected:
+        con = connect()
+        if not con:
+            return prepare_response(False,  "Unable to connect to database.")
+        try:
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False,  "Unable to connect to database.")
     try:
         query = '''WITH student_data
      AS (SELECT applications.application_id AS student_application_id,
@@ -418,11 +425,11 @@ professor_data.professor_posting_id '''
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass
 
 
 def update_application(data):
@@ -445,11 +452,12 @@ def update_application(data):
     ```
     '''
     
-    
-    try:
-        con = connect()
-    except:
-        return prepare_response(False, "Unable to create DB connection")
+    global con, connected
+    if not con or not connected:
+        try:
+            con = connect()
+        except:
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         print(data)
@@ -469,8 +477,8 @@ def update_application(data):
     except Exception as e:
         print(e)
         return prepare_response(False, str(e))
-    finally:
-        disconnect(con)
+    # finally:
+    #     disconnect(con)
 
 
 def save_job(data):
@@ -491,11 +499,12 @@ def save_job(data):
     }
     ```
     '''
-    
-    try:
-        con = connect()
-    except:
-        return prepare_response(False, "Unable to create DB connection")
+    global con, connected
+    if not con or not connected:
+        try:
+            con = connect()
+        except:
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         student = data["user_id"]
@@ -512,8 +521,8 @@ def save_job(data):
     except Exception as e:
         print(e)
         return prepare_response(False, str(e))
-    finally:
-        disconnect(con)
+    # finally:
+    #     disconnect(con)
 
 def get_saved_jobs(data):
 
@@ -546,13 +555,14 @@ def get_saved_jobs(data):
     }
     ```
     '''
-    
-    try:
-        con = connect()
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False, "Unable to create DB connection")
+    global con, connected
+    if not con or not connected:
+        try:
+            con = connect()
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         student = data["user_id"]
@@ -591,8 +601,8 @@ def get_saved_jobs(data):
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass

@@ -26,11 +26,12 @@ def add_posting(data):
     }
     ```
     '''
-    
-    try:
-        con = connect()
-    except:
-        return prepare_response(False, "Unable to create DB connection")
+    global con, connected
+    if not con or not connected:
+        try:
+            con = connect()
+        except:
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         professor = data["professor"]
@@ -52,8 +53,8 @@ def add_posting(data):
     except Exception as e:
         print(e)
         return prepare_response(False, str(e))
-    finally:
-        disconnect(con)
+    # finally:
+    #     disconnect(con)
         
         
 def get_all_postings():
@@ -87,16 +88,17 @@ Response:
 }
 ```
     '''   
+    global con, connected
+    if not con or not connected:
     
-    
-    con = connect()
-    if not con:
-        return prepare_response(False,  "Unable to connect to database.")
-    try:
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False,  "Unable to connect to database.")
+        con = connect()
+        if not con:
+            return prepare_response(False,  "Unable to connect to database.")
+        try:
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False,  "Unable to connect to database.")
     try:
         query = '''select POSTING_ID, TITLE, DESCRIPTION, USERS.EMAIL, PROFESSORS.DEPARTMENT, PROFESSORs.DESIGNATION, USERS.DISPLAY_NAME, LOCATION, PREREQUISITES, CREATED_AT, UPDATED_AT from USERS JOIN PROFESSORS ON USERS.USER_ID = PROFESSORS.USER_ID JOIN POSTINGS ON PROFESSORS.USER_ID = POSTINGS.PROFESSOR'''
         curs.execute(query)
@@ -110,11 +112,11 @@ Response:
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass
    
 
 def get_all_postings_by_professor(data):
@@ -145,15 +147,17 @@ def get_all_postings_by_professor(data):
     }
     ```
     '''
+    global con, connected
+    if not con or not connected:
     
-    con = connect()
-    if not con:
-        return prepare_response(False,  "Unable to connect to database.")
-    try:
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False,  "Unable to connect to database.")
+        con = connect()
+        if not con:
+            return prepare_response(False,  "Unable to connect to database.")
+        try:
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False,  "Unable to connect to database.")
     try:
         professor = data["professor"]
         query = '''SELECT * FROM POSTINGS WHERE PROFESSOR = :1'''
@@ -169,11 +173,11 @@ def get_all_postings_by_professor(data):
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass
 
 
 
@@ -198,12 +202,14 @@ def update_posting(data):
     }
     ```
     '''
+    global con, connected
+    if not con or not connected:
     
-    
-    try:
-        con = connect()
-    except:
-        return prepare_response(False, "Unable to create DB connection")
+        
+        try:
+            con = connect()
+        except:
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         posting_id = data["posting_id"]
@@ -225,8 +231,8 @@ def update_posting(data):
     except Exception as e:
         print(e)
         return prepare_response(False, str(e))
-    finally:
-        disconnect(con)
+    # finally:
+    #     disconnect(con)
         
 
 def get_applications_for_professor(data):
@@ -272,15 +278,17 @@ Response:
     ```
     '''
     
+    global con, connected
+    if not con or not connected:
     
-    con = connect()
-    if not con:
-        return prepare_response(False,  "Unable to connect to database.")
-    try:
-        curs = con.cursor()
-    except Exception as e:
-        print(e)
-        return prepare_response(False,  "Unable to connect to database.")
+        con = connect()
+        if not con:
+            return prepare_response(False,  "Unable to connect to database.")
+        try:
+            curs = con.cursor()
+        except Exception as e:
+            print(e)
+            return prepare_response(False,  "Unable to connect to database.")
     try:
         professor = data["professor"]
         query = '''SELECT postings.posting_id,
@@ -363,11 +371,11 @@ order by postings.POSTING_ID'''
     except Exception as e:
         print(e)
         return {"status": False, "data": str(e)}
-    finally:
-        try:
-            con.close()
-        except:
-            pass
+    # finally:
+    #     try:
+    #         con.close()
+    #     except:
+    #         pass
 
 
 def delete_posting(data):
@@ -387,11 +395,13 @@ def delete_posting(data):
     ```
     
     '''
-    
-    try:
-        con = connect()
-    except:
-        return prepare_response(False, "Unable to create DB connection")
+    global con, connected
+    if not con or not connected:
+        
+        try:
+            con = connect()
+        except:
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         posting_id = data["posting_id"]
@@ -406,8 +416,8 @@ def delete_posting(data):
     except Exception as e:
         print(e)
         return prepare_response(False, str(e))
-    finally:
-        disconnect(con)
+    # finally:
+    #     disconnect(con)
 
 # Assumes that the applications being sent to this function are only for a specific posting id
 def update_all_applications(data):
@@ -446,11 +456,13 @@ def update_all_applications(data):
     ```
     '''
     
+    global con, connected
+    if not con or not connected:
     
-    try:
-        con = connect()
-    except:
-        return prepare_response(False, "Unable to create DB connection")
+        try:
+            con = connect()
+        except:
+            return prepare_response(False, "Unable to create DB connection")
     try:
         # Get the data from JSON Payload
         posting_id = data["posting_id"]
@@ -472,8 +484,8 @@ def update_all_applications(data):
     except Exception as e:
         print(e)
         return prepare_response(False, str(e))
-    finally:
-        disconnect(con)
+    # finally:
+    #     disconnect(con)
 
 def send_email(data):
     
